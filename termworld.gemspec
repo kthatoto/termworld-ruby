@@ -1,4 +1,3 @@
-
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "termworld/version"
@@ -9,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kthatoto"]
   spec.email         = ["kthatoto@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Programmable RPG Games.}
+  spec.description   = %q{Programmable RPG Games that can be played on the terminal and with any programming languages.}
+  spec.homepage      = "https://github.com/kthatoto/termworld"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -35,6 +34,10 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.add_dependency "thor"
+  spec.add_dependency "sequel"
+  spec.add_dependency "sqlite3"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
