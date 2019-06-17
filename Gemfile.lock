@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    termworld (0.1.1)
+    termworld (0.1.2)
       sequel
       sqlite3
       thor
