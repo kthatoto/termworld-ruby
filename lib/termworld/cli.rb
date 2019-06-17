@@ -4,6 +4,7 @@ module Termworld
 
     desc "start", "Start game client..."
     def start
+      puts :starting
     end
   end
 end

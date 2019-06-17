@@ -1,3 +1,4 @@
-Dir[File.dirname(__FILE__) + '/lib/**/*.rb'].each { |file| require file }
+require "termworld/cli"
+require "pry"
 module Termworld
 end
