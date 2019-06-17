@@ -1,7 +1,7 @@
 module Termworld
   class DB
     def initialize
-      $db = Sequel.sqlite
+      $db = Sequel.sqlite('termworld.db')
       User.new
     end
   end
