@@ -1,5 +1,4 @@
 require "thor"
-require "pry"
 require "termworld/cli"
 require "termworld/constants/version"
 Dir.glob("lib/**/*.rb").map { |file|
