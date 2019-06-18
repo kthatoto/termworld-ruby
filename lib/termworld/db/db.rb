@@ -1,3 +1,5 @@
+require "sequel"
+
 require "termworld/db/user"
 
 module Termworld
