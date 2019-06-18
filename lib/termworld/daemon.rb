@@ -2,8 +2,8 @@ module Termworld
   class Daemon
 
     def prepare
-      Signal.trap(:INT) {@killed = true}
-      Signal.trap(:TERM) {@killed = true}
+      Signal.trap(:INT) {$killed = true}
+      Signal.trap(:TERM) {$killed = true}
       DB.new
       Process.setproctitle("termworld_daemon")
       File.write(Termworld::DAEMON_ALIVE_FILE_NAME, nil)
@@ -17,6 +17,7 @@ module Termworld
 
     def stop
       `ps aux | grep termworld_daemon | grep -v grep | awk '{print $2}' | xargs kill`
+      `rm #{Termworld::DAEMON_ALIVE_FILE_NAME}`
       DB.stop
       puts "Stopped!"
     end

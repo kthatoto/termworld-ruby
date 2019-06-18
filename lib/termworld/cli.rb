@@ -13,9 +13,10 @@ module Termworld
 
       loop do
         daemon.check_alive
-        break if @killed
+        break if $killed
         sleep 1
       end
+      daemon.stop
     end
 
     desc "stop", "Stop game client."
