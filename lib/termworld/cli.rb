@@ -9,10 +9,12 @@ module Termworld
     def start
       Signal.trap(:INT) {@killed = true}
       Signal.trap(:TERM) {@killed = true}
-      Process.daemon(true, false) # (nochdir, noclose)
 
       DB.new
       3.times { |i| $db[:users].insert(name: "Sequel:#{i}", price: 0) }
+
+      puts "Started!"
+      Process.daemon(true, false) # (nochdir, noclose)
       loop do
         $db[:users].update(price: Sequel[:price] + 1)
         break if @killed

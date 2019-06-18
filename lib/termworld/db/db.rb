@@ -9,7 +9,7 @@ module Termworld
       User.new
     end
 
-    def stop
+    def self.stop
       `rm termworld.db`
     end
   end
