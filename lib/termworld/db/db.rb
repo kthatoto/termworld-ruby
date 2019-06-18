@@ -8,5 +8,9 @@ module Termworld
       $db = Sequel.sqlite('./termworld.db')
       User.new
     end
+
+    def stop
+      `rm termworld.db`
+    end
   end
 end
