@@ -25,6 +25,7 @@ module Termworld
 
     desc "stop", "Stop game client."
     def stop
+      `ps aux | grep termworld | grep -v grep | awk '{print $2}' | xargs kill`
     end
   end
 end
