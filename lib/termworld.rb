@@ -1,5 +1,5 @@
 require "termworld/cli"
-require "termworld/constants/config"
+require "termworld/config"
 
 module Termworld
   def self.start

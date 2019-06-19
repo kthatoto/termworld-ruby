@@ -13,7 +13,7 @@ module Termworld
       daemon.prepare
 
       loop do
-        daemon.check_alive
+        $killed = true if daemon.alive?
         break if $killed
         sleep 1
       end

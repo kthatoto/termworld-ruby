@@ -1,5 +1,7 @@
 module Termworld
   class Daemon
+    def initialize
+    end
 
     def prepare
       Signal.trap(:INT) {$killed = true}
@@ -11,8 +13,8 @@ module Termworld
       Process.daemon(true, false) # (nochdir, noclose)
     end
 
-    def check_alive
-      stop if !File.exists?(Termworld::DAEMON_ALIVE_FILE_NAME)
+    def alive?
+      !File.exists?(Termworld::DAEMON_ALIVE_FILE_NAME)
     end
 
     def stop
