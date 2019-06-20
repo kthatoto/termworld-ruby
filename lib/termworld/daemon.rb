@@ -1,27 +1,63 @@
 module Termworld
   class Daemon
-    def initialize
+    attr_reader :error
+    def initialize(status)
+      case status
+      when :start
+        @error = :already_running if alive?
+      when :stop
+        @error = :not_running unless alive?
+      end
     end
 
-    def prepare
-      Signal.trap(:INT) {$killed = true}
-      Signal.trap(:TERM) {$killed = true}
+    def run
+      delete_files
+      [:INT, :TERM].each do |key|
+        Signal.trap(key) {@killed = true}
+      end
       DB.new
-      Process.setproctitle("termworld_daemon")
-      File.write(Termworld::DAEMON_ALIVE_FILE_NAME, nil)
-      puts "Started!"
+      Process.setproctitle(Termworld::PROCESS_NAME)
+      File.write(Termworld::DAEMON_FILE_NAME, nil)
+      puts ColorUtil.greenen "Started!"
       Process.daemon(true, false) # (nochdir, noclose)
     end
 
     def alive?
-      !File.exists?(Termworld::DAEMON_ALIVE_FILE_NAME)
+      @killed.nil? && daemon_file_exists && daemon_process_exists
     end
 
     def stop
-      `ps aux | grep termworld_daemon | grep -v grep | awk '{print $2}' | xargs kill`
-      `rm #{Termworld::DAEMON_ALIVE_FILE_NAME}`
-      DB.stop
-      puts "Stopped!"
+      kill_daemon_process
+      delete_files
+      puts ColorUtil.greenen "Stopped!"
     end
+
+    def handle_error
+      case @error
+      when :already_running
+        puts ColorUtil.bluen "Already running..."
+      when :not_running
+        puts ColorUtil.bluen "Not running..."
+      end
+    end
+
+    def delete_files
+      `rm #{Termworld::DAEMON_FILE_NAME}` if File.exists?(Termworld::DAEMON_FILE_NAME)
+      `rm #{Termworld::DATABASE_NAME}` if File.exists?(Termworld::DATABASE_NAME)
+    end
+
+    private
+
+      def kill_daemon_process
+        `ps aux | grep #{Termworld::PROCESS_NAME} | grep -v grep | awk '{print $2}' | xargs kill`
+      end
+
+      def daemon_file_exists
+        File.exists?(Termworld::DAEMON_FILE_NAME)
+      end
+
+      def daemon_process_exists
+        `ps aux | grep #{Termworld::PROCESS_NAME} | grep -v grep | wc -l`.delete(' ').to_i > 0
+      end
   end
 end
