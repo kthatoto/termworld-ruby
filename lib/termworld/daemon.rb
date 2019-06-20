@@ -35,9 +35,9 @@ module Termworld
     def handle_error
       case @error
       when :already_running
-        puts ColorUtil.bluen "Already running..."
+        puts ColorUtil.reden "Already running..."
       when :not_running
-        puts ColorUtil.bluen "Not running..."
+        puts ColorUtil.reden "Not running..."
       end
     end
 
