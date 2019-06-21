@@ -20,10 +20,14 @@ module Termworld
 
       def get_credential
         email, token = nil
-        File.open(Termworld::CREDENTIAL_FILE_NAME) do |file|
-          email, token = file.read.split("\n")
+        begin
+          File.open(Termworld::CREDENTIAL_FILE_NAME) do |file|
+            email, token = file.read.split("\n")
+          end
+        rescue
+          return [nil, nil]
         end
-        return [email, token]
+        [email, token]
       end
     end
   end

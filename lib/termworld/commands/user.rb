@@ -19,10 +19,8 @@ module Termworld
           params[:name] = $stdin.gets.chomp
         end
 
-        # if name.empty? || !name.scan(/[^0-9a-z]+/i).empty?
-        #   puts Utils::Color.reden "Name must have only alphanumeric"
-        #   return
-        # end
+        user = Model::User.new(params)
+        user.save
       end
     end
   end
