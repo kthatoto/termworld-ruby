@@ -8,7 +8,7 @@ module Termworld
             return
           end
           print "email: "
-          ::Kernel.gets.chomp
+          email = $stdin.gets
         end
 
         def logout
