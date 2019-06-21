@@ -1,10 +1,12 @@
-require "termworld/cli"
 require "termworld/config"
-require "termworld/utils"
+require "termworld/utils/color"
+require "termworld/utils/api_client"
+require "termworld/cli"
 
 module Termworld
   def self.start
     setup_termworld_directory
+    $api_client = Utils::ApiClient.new
     CLI.start
   end
 

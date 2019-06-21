@@ -18,7 +18,7 @@ module Termworld
       DB.new
       Process.setproctitle(Termworld::PROCESS_NAME)
       File.write(Termworld::DAEMON_FILE_NAME, nil)
-      puts ColorUtil.greenen "Started!"
+      puts Utils::Color.greenen "Started!"
       Process.daemon(true, false) # (nochdir, noclose)
     end
 
@@ -29,15 +29,15 @@ module Termworld
     def stop
       kill_daemon_process
       delete_files
-      puts ColorUtil.greenen "Stopped!"
+      puts Utils::Color.greenen "Stopped!"
     end
 
     def handle_error
       case @error
       when :already_running
-        puts ColorUtil.reden "Already running..."
+        puts Utils::Color.reden "Already running..."
       when :not_running
-        puts ColorUtil.reden "Not running..."
+        puts Utils::Color.reden "Not running..."
       end
     end
 

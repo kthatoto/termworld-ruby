@@ -1,45 +1,37 @@
 require "thor"
 
 require "termworld/db/db"
-require "termworld/daemon"
+require "termworld/commands/account"
+require "termworld/commands/daemon_operator"
 require "termworld/commands/user"
+require "termworld/credential"
 
 module Termworld
   class CLI < Thor
 
+    desc "login", "Login"
+    def login
+      Commands::Account.login
+    end
+    desc "logout", "Logout"
+    def logout
+      Commands::Account.logout
+    end
+
     desc "start", "Start game client"
     def start
-      daemon = Daemon.new(:start)
-      return daemon.handle_error if daemon.error
-      daemon.run
-
-      loop do
-        break unless daemon.alive?
-        `echo #{rand} >> daemon.log`
-        sleep 1
-      end
-      daemon.stop
+      return unless Credential.logged_in?(true)
+      Commands::DaemonOperator.start
     end
-
     desc "stop", "Stop game client"
     def stop
-      daemon = Daemon.new(:stop)
-      if daemon.error
-        daemon.delete_files
-        daemon.handle_error
-        return
-      end
-      daemon.stop
+      return unless Credential.logged_in?(true)
+      Commands::DaemonOperator.stop
     end
-
     desc "status", "Check status"
     def status
-      daemon = Daemon.new(:status)
-      if daemon.alive?
-        puts ColorUtil.bluen "Running!"
-      else
-        puts ColorUtil.bluen "Not running."
-      end
+      return unless Credential.logged_in?(true)
+      Commands::DaemonOperator.status
     end
 
     desc "user [COMMAND] <options>", "User actions"
