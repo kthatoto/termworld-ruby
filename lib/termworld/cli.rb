@@ -1,6 +1,7 @@
 require "thor"
+require "optparse"
 
-require "termworld/db/db"
+require "termworld/db"
 require "termworld/commands/account"
 require "termworld/commands/daemon_operator"
 require "termworld/commands/user"

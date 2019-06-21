@@ -4,7 +4,6 @@ module Termworld
       $db.create_table :users do
         primary_key :id
         String :name
-        Integer :price
       end
     end
   end
