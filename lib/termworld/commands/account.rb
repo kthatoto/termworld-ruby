@@ -18,6 +18,14 @@ module Termworld
         end
 
         def logout
+          return puts Utils::Color.reden "Not logged in" unless Credential.logged_in?
+          email, token = Credential.get_credential
+          res = $api_client.call(:post, '/logout', {email: email, token: token})
+          return puts Utils::Color.reden "Logout failed" if res.code != 200
+          daemon = Daemon.new(:logout)
+          daemon.stop if daemon.alive?
+          File.delete(Termworld::CREDENTIAL_FILE_NAME) if File.exists?(Termworld::CREDENTIAL_FILE_NAME)
+          puts Utils::Color.greenen "Logout successed!"
         end
       end
     end

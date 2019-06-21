@@ -6,7 +6,7 @@ module Termworld
           puts Utils::Color.reden "Login required" if with_messages
           return false
         end
-        email, token = nil
+        email, token = self.get_credential
         File.open(Termworld::CREDENTIAL_FILE_NAME) do |file|
           email, token = file.read.split("\n")
         end
@@ -16,6 +16,14 @@ module Termworld
           return false
         end
         true
+      end
+
+      def get_credential
+        email, token = nil
+        File.open(Termworld::CREDENTIAL_FILE_NAME) do |file|
+          email, token = file.read.split("\n")
+        end
+        return [email, token]
       end
     end
   end

@@ -35,15 +35,15 @@ module Termworld
     def handle_error
       case @error
       when :already_running
-        puts Utils::Color.reden "Already running..."
+        puts Utils::Color.reden "Already running"
       when :not_running
-        puts Utils::Color.reden "Not running..."
+        puts Utils::Color.reden "Not running"
       end
     end
 
     def delete_files
-      `rm #{Termworld::DAEMON_FILE_NAME}` if File.exists?(Termworld::DAEMON_FILE_NAME)
-      `rm #{Termworld::DATABASE_NAME}` if File.exists?(Termworld::DATABASE_NAME)
+      File.delete(Termworld::DAEMON_FILE_NAME) if File.exists?(Termworld::DAEMON_FILE_NAME)
+      File.delete(Termworld::DATABASE_NAME) if File.exists?(Termworld::DATABASE_NAME)
     end
 
     private
