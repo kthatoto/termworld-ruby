@@ -7,7 +7,7 @@ require "termworld/commands/daemon_operator"
 require "termworld/commands/user"
 require "termworld/commands/user_action"
 require "termworld/credential"
-require "termworld/utils/option_parser"
+require "termworld/utils/option_parser_wrapper"
 
 module Termworld
   class CLI < Thor

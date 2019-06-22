@@ -4,10 +4,11 @@ module Termworld
 
       desc "create", "Create user"
       def create(*options)
-        option_parser = Utils::OptionParser.new([
-          {option: ['-n', '--name=[VALUE]', 'User name'], key: :name},
+        option_parser = Utils::OptionParserWrapper.new([
+          {option: ['-n', '--name [VALUE]', 'User name'], key: :name},
         ])
         params = option_parser.parse!
+        return puts option_parser.error_message if option_parser.error_message
         if params[:name].nil?
           print "name: "
           params[:name] = $stdin.gets.chomp
@@ -21,7 +22,7 @@ module Termworld
 
       desc "list", "List users"
       def list(*options)
-        option_parser = Utils::OptionParser.new([])
+        option_parser = Utils::OptionParserWrapper.new([])
         option_parser.parse!
 
         users = Model::User.all
