@@ -20,7 +20,32 @@ module Termworld
         end
 
         user = Model::User.new(params)
-        user.save
+        result = user.save
+        return puts Utils::Color.reden "Failed create user" unless result
+        puts Utils::Color.greenen "Successed create user!"
+      end
+
+      desc "list", "List users"
+      def list(*options)
+        params = {}
+        begin
+          OptionParser.new do |opt|
+            opt.parse!(options)
+          end
+        rescue OptionParser::InvalidOption => e
+          puts Utils::Color.reden "Invalid options: #{e.args.first}"
+          return
+        end
+
+        users = Model::User.all
+        if users.empty?
+          puts Utils::Color.bluen "No users. Please create user first"
+          puts "ex) $ termworld user create --name=<name>"
+          return
+        end
+        users.each do |user|
+          puts "id:#{user.id} #{user.name}"
+        end
       end
     end
   end

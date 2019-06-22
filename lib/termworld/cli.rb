@@ -1,10 +1,12 @@
 require "thor"
 require "optparse"
+require "json"
 
 require "termworld/db"
 require "termworld/commands/account"
 require "termworld/commands/daemon_operator"
 require "termworld/commands/user"
+require "termworld/commands/user_action"
 require "termworld/credential"
 
 module Termworld
@@ -40,9 +42,15 @@ module Termworld
 
     def method_missing(method, *arg, &block)
       _method = method.to_s.split(?:)
-      puts "Command:#{_method[0]}"
-      puts "Name:#{_method[1]}"
-      pp arg
+      begin
+        action_class = Object.const_get("Termworld::Commands::#{_method[0].capitalize}Action")
+      rescue
+        puts Utils::Color.reden "#{_method[0]} command not found"
+        return
+      end
+      action = action_class.new(_method[1])
+      return puts Utils::Color.reden "Enter commands" if arg.empty?
+      action.send(arg[0], arg[1..-1])
     end
   end
 end

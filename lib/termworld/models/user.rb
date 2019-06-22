@@ -1,7 +1,7 @@
 module Termworld
   module Model
     class User
-      attr_reader :name
+      attr_reader :id, :name
       class << self
         def create_table
           $db.create_table :users do
@@ -9,9 +9,18 @@ module Termworld
             String :name
           end
         end
+
+        def all
+          res = $api_client.call_auth(:get, '/users')
+          return [] if res.code != 200
+          JSON.parse(res.body)['users'].map do |user|
+            self.new({id: user['id'], name: user['name']})
+          end
+        end
       end
 
       def initialize(params)
+        @id = params[:id]
         @name = params[:name]
       end
 
@@ -19,6 +28,8 @@ module Termworld
         validate
         return false unless @errors.empty?
         res = $api_client.call_auth(:post, '/users', {name: @name})
+        return false if res.code != 201
+        true
       end
       def validate
         @errors = []

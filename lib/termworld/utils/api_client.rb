@@ -24,9 +24,9 @@ module Termworld
           'X-Termworld-Token': token,
         }
         if method == :get
-          res = @client.get(Termworld::API_ENDPOINT + url, query: params, headers: headers)
+          res = @client.get(Termworld::API_ENDPOINT + url, query: params, header: headers)
         else
-          res = @client.send(method, Termworld::API_ENDPOINT + url, body: params, headers: headers)
+          res = @client.send(method, Termworld::API_ENDPOINT + url, body: params, header: headers)
         end
         res
       end
