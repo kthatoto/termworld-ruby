@@ -1,16 +1,16 @@
 module Termworld
   class Daemon
-    attr_reader :error
+    attr_reader :error_message
     def initialize(status)
       case status
       when :start
-        @error = :already_running if alive?
+        @error_message = Utils::Color.reden "Already running" if alive?
       when :stop
-        @error = :not_running unless alive?
+        @error_message = Utils::Color.reden "Not running" unless alive?
       end
     end
 
-    def run
+    def prepare
       delete_files
       [:INT, :TERM].each do |key|
         Signal.trap(key) {@killed = true}
@@ -18,7 +18,9 @@ module Termworld
       DB.new
       Process.setproctitle(Termworld::PROCESS_NAME)
       File.write(Termworld::DAEMON_FILE_NAME, nil)
-      puts Utils::Color.greenen "Started!"
+    end
+
+    def run
       Process.daemon(true, false) # (nochdir, noclose)
     end
 
@@ -27,18 +29,8 @@ module Termworld
     end
 
     def stop
-      kill_daemon_process
       delete_files
-      puts Utils::Color.greenen "Stopped!"
-    end
-
-    def handle_error
-      case @error
-      when :already_running
-        puts Utils::Color.reden "Already running"
-      when :not_running
-        puts Utils::Color.reden "Not running"
-      end
+      kill_daemon_process
     end
 
     def delete_files

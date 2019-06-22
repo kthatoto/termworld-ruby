@@ -6,7 +6,6 @@ module Termworld
       end
 
       def awake(options)
-        pp options
       end
 
       def method_missing(method, _)

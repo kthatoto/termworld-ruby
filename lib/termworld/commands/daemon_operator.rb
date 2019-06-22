@@ -6,7 +6,9 @@ module Termworld
       class << self
         def start
           daemon = Daemon.new(:start)
-          return daemon.handle_error if daemon.error
+          return puts daemon.error_message if daemon.error_message
+          daemon.prepare
+          puts Utils::Color.greenen "Started!"
           daemon.run
 
           loop do
@@ -19,17 +21,18 @@ module Termworld
 
         def stop
           daemon = Daemon.new(:stop)
-          if daemon.error
+          if daemon.error_message
             daemon.delete_files
-            daemon.handle_error
+            puts daemon.error_message
             return
           end
           daemon.stop
+          puts Utils::Color.greenen "Stopped!"
         end
 
         def status
           daemon = Daemon.new(:status)
-          return daemon.handle_error if daemon.error
+          return puts daemon.error_message if daemon.error_message
           if daemon.alive?
             puts Utils::Color.bluen "Running!"
           else

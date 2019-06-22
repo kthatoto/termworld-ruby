@@ -3,7 +3,8 @@ module Termworld
     class Account
       class << self
         def login
-          return puts Utils::Color.reden "Already logged in" if Credential.logged_in?
+          credential = Credential.new
+          return puts Utils::Color.reden "Already logged in" if credential.logged_in?
           print "email: "
           email = $stdin.gets.chomp
           res = $api_client.call(:post, '/token', {email: email})
@@ -18,7 +19,8 @@ module Termworld
         end
 
         def logout
-          return puts Utils::Color.reden "Not logged in" unless Credential.logged_in?
+          credential = Credential.new
+          return puts Utils::Color.reden "Not logged in" unless credential.logged_in?
           email, token = Credential.get_credential
           res = $api_client.call(:post, '/logout', {email: email, token: token})
           return puts Utils::Color.reden "Logout failed" if res.code != 200
