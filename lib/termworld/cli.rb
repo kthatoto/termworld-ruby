@@ -1,5 +1,4 @@
 require "thor"
-require "optparse"
 require "json"
 
 require "termworld/db"
@@ -8,6 +7,7 @@ require "termworld/commands/daemon_operator"
 require "termworld/commands/user"
 require "termworld/commands/user_action"
 require "termworld/credential"
+require "termworld/utils/option_parser"
 
 module Termworld
   class CLI < Thor
@@ -49,7 +49,7 @@ module Termworld
         return
       end
       action = action_class.new(_method[1])
-      return puts Utils::Color.reden "Enter commands" if arg.empty?
+      return puts Utils::Color.reden "Enter any commands" if arg.empty?
       action.send(arg[0], arg[1..-1])
     end
   end

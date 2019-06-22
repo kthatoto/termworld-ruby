@@ -4,16 +4,10 @@ module Termworld
 
       desc "create", "Create user"
       def create(*options)
-        params = {}
-        begin
-          OptionParser.new do |opt|
-            opt.on('-n', '--name=[VALUE]', 'User name') { |v| params[:name] = v }
-            opt.parse!(options)
-          end
-        rescue OptionParser::InvalidOption => e
-          puts Utils::Color.reden "Invalid options: #{e.args.first}"
-          return
-        end
+        option_parser = Utils::OptionParser.new([
+          {option: ['-n', '--name=[VALUE]', 'User name'], key: :name},
+        ])
+        params = option_parser.parse!
         if params[:name].nil?
           print "name: "
           params[:name] = $stdin.gets.chomp
@@ -27,15 +21,8 @@ module Termworld
 
       desc "list", "List users"
       def list(*options)
-        params = {}
-        begin
-          OptionParser.new do |opt|
-            opt.parse!(options)
-          end
-        rescue OptionParser::InvalidOption => e
-          puts Utils::Color.reden "Invalid options: #{e.args.first}"
-          return
-        end
+        option_parser = Utils::OptionParser.new([])
+        option_parser.parse!
 
         users = Model::User.all
         if users.empty?
