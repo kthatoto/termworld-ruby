@@ -24,6 +24,7 @@ module Termworld
       def list(*options)
         option_parser = Utils::OptionParserWrapper.new([])
         option_parser.parse!
+        return puts option_parser.error_message if option_parser.error_message
 
         users = Model::User.all
         if users.empty?
