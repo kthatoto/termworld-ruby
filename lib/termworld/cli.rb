@@ -23,23 +23,14 @@ module Termworld
 
     desc "start", "Start game client"
     def start
-      credential = Credential.new
-      return puts credential.error_message unless credential.logged_in?
       Commands::DaemonOperator.start
     end
     desc "stop", "Stop game client"
     def stop
-      credential = Credential.new
-      unless credential.logged_in?
-        Daemon.new(:force_stop).stop
-        return puts credential.error_message
-      end
       Commands::DaemonOperator.stop
     end
     desc "status", "Check status"
     def status
-      credential = Credential.new
-      return puts credential.error_message unless credential.logged_in?
       Commands::DaemonOperator.status
     end
 
