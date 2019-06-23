@@ -1,7 +1,7 @@
 module Termworld
   class Daemon
     attr_reader :error_message
-    def initialize(status)
+    def initialize(status = nil)
       case status
       when :start
         @error_message = Utils::Color.reden "Already running" if alive?
@@ -15,7 +15,7 @@ module Termworld
       [:INT, :TERM].each do |key|
         Signal.trap(key) {@killed = true}
       end
-      DB.new
+      DB.setup
       Process.setproctitle(Termworld::PROCESS_NAME)
       File.write(Termworld::DAEMON_FILE_NAME, nil)
     end

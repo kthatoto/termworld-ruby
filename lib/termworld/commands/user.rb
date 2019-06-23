@@ -15,7 +15,7 @@ module Termworld
         end
 
         user = Model::User.new(params)
-        result = user.save
+        result = user.create
         return puts Utils::Color.reden "Failed create user" unless result
         puts Utils::Color.greenen "Successed create user!"
       end

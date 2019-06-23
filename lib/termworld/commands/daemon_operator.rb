@@ -1,5 +1,3 @@
-require "termworld/daemon"
-
 module Termworld
   module Commands
     class DaemonOperator

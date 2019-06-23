@@ -1,12 +1,16 @@
+require "sequel"
+
 require "termworld/config"
 require "termworld/utils/color"
 require "termworld/utils/api_client"
 require "termworld/cli"
+require "termworld/daemon"
 
 module Termworld
   def self.start
     setup_termworld_directory
     $api_client = Utils::ApiClient.new
+    $db = Sequel.sqlite(Termworld::DATABASE_NAME) if Daemon.new.alive?
     CLI.start
   end
 

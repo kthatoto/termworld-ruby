@@ -5,7 +5,39 @@ module Termworld
         @name = name
       end
 
-      def awake(options)
+      def wakeup(options)
+        res = $api_client.call_auth(:get, "/users/#{@name}")
+        puts Utils::Color.reden "Login required" if res.code == 401
+        puts Utils::Color.reden "User:#{@name} doesn't exsit" if res.code == 404
+        user = Model::User.new(JSON.parse(res.body, {symbolize_names: true})[:user])
+        user.initialize_position
+        user.save_local
+        if user.updated
+          puts Utils::Color.reden "User:#{user.name} already awake"
+        elsif user.created
+          puts Utils::Color.greenen "User:#{user.name} woke up!"
+        end
+      end
+
+      def sleep(options)
+        user = Model::User.new(name: @name)
+        user.delete_local(by: :name)
+        puts Utils::Color.greenen "User:#{user.name} slept!"
+      end
+
+      def move(options)
+        if options.size != 1 || !%w(up down left right).include?(options.first)
+          puts Utils::Color.reden 'Direction must be only up, down, left or right'
+          puts "ex) $ termworld user:#{@name} move up"
+          return
+        end
+        direction = options.first.to_sym
+        user = Model::User.new(name: @name)
+        if !user.bind_local_by_name
+          return puts Utils::Color.reden "User:#{@name} doesn't exist"
+        end
+        user.move(direction)
+        user.save_local
       end
 
       def method_missing(method, _)

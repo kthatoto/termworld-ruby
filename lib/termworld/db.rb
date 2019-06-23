@@ -1,11 +1,12 @@
-require "sequel"
-
 require "termworld/models/user"
 
 module Termworld
   class DB
-    def initialize
-      $db = Sequel.sqlite(Termworld::DATABASE_NAME)
+    class << self
+      def setup
+        $db ||= Sequel.sqlite(Termworld::DATABASE_NAME)
+        Model::User.create_table
+      end
     end
   end
 end
