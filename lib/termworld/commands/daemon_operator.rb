@@ -13,7 +13,6 @@ module Termworld
 
           loop do
             break unless daemon.alive?
-            `echo #{rand} >> daemon.log`
             sleep 1
           end
           daemon.stop

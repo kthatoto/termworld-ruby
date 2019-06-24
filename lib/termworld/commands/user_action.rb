@@ -27,7 +27,7 @@ module Termworld
         puts Utils::Color.greenen "User:#{user.name} slept!"
       end
 
-      def terminal
+      def terminal(options)
         user = Models::User.new(name: @name)
         if !user.bind_local_by_name
           return puts Utils::Color.reden "User:#{@name} is not awake or doesn't exists"
