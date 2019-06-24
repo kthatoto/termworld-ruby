@@ -10,8 +10,6 @@ module Termworld
       end
 
       def run
-        require 'pry'
-        binding.pry
         field = TermCanvas::Canvas.new(x: 0, y: 0, w: 10, h: 10)
 
         loop do
