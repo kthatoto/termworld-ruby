@@ -7,6 +7,7 @@ module Termworld
           $db.create_table :users do
             primary_key :id
             String :name
+            String :current_map
             Integer :positionx
             Integer :positiony
           end
@@ -74,6 +75,7 @@ module Termworld
         {
           id: @id,
           name: @name,
+          current_map: @current_map,
           positionx: @positionx,
           positiony: @positiony,
         }
@@ -83,6 +85,7 @@ module Termworld
       end
 
       def initialize_position
+        @current_map = 'town'
         @positionx = 0
         @positiony = 0
       end
