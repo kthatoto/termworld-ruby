@@ -33,11 +33,8 @@ module Termworld
                 u.positionx == abs_position[:x] && u.positiony == abs_position[:y]
               }
               if user
-                player = TermCanvas::Rect.new(
-                  x: x * 2 + 1, y: y, width: 2, height: 1,
-                  background_color: {r: 200, b: 200, g: 800},
-                )
-                field.rect(player)
+                player_chip = Resources::Chip.new(x: x * 2 + 1, y: y, key: "pl")
+                field.rect(player_chip.rect)
                 next
               end
               next if abs_position.any? { |_, v| v < 0 }
@@ -46,11 +43,8 @@ module Termworld
             end
           end
 
-          player = TermCanvas::Rect.new(
-            x: field.centerx, y: field.centery, width: 2, height: 1,
-            background_color: {r: 200, b: 200, g: 800},
-          )
-          field.rect(player)
+          player_chip = Resources::Chip.new(x: field.centerx, y: field.centery, key: "pl")
+          field.rect(player_chip.rect)
 
           field.update
           sleep 0.05

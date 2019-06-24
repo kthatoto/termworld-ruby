@@ -28,7 +28,7 @@ EOS
         def get_chip(y:, x:)
           chip_number = chip_numbers[y] && chip_numbers[y][x]
           return nil if chip_number.nil?
-          chip = Chip.new(y: y, x: x, number: chip_number)
+          chip = Resources::Chip.new(y: y, x: x, key: chip_number)
           chip
         end
       end
