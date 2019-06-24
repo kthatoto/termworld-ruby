@@ -32,7 +32,10 @@ module Termworld
               }
               next if abs_position.any? { |_, v| v < 0 }
               next if (chip = map.get_chip(abs_position)).nil?
-              field.rect(chip.rect)
+              field.rect(chip.rect.offset(
+                x: (width / 2) - @user.positionx,
+                y: (height / 2) - @user.positiony,
+              ))
             end
           end
 
