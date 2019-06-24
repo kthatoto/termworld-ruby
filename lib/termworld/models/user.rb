@@ -1,7 +1,7 @@
 module Termworld
   module Models
     class User
-      attr_reader :id, :name, :created, :updated
+      attr_reader :id, :name, :created, :updated, :positionx, :positiony
       class << self
         def create_table
           $db.create_table :users do
