@@ -14,7 +14,7 @@ module Termworld
           params[:name] = $stdin.gets.chomp
         end
 
-        user = Model::User.new(params)
+        user = Models::User.new(params)
         result = user.create
         return puts Utils::Color.reden "Failed create user" unless result
         puts Utils::Color.greenen "Successed create user!"
@@ -26,7 +26,7 @@ module Termworld
         option_parser.parse!
         return puts option_parser.error_message if option_parser.error_message
 
-        users = Model::User.all
+        users = Models::User.all
         if users.empty?
           puts Utils::Color.bluen "No users. Please create user first"
           puts "ex) $ termworld user create --name=<name>"

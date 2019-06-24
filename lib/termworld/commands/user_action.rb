@@ -9,7 +9,7 @@ module Termworld
         res = $api_client.call_auth(:get, "/users/#{@name}")
         puts Utils::Color.reden "Login required" if res.code == 401
         puts Utils::Color.reden "User:#{@name} doesn't exsit" if res.code == 404
-        user = Model::User.new(JSON.parse(res.body, {symbolize_names: true})[:user])
+        user = Models::User.new(JSON.parse(res.body, {symbolize_names: true})[:user])
         user.initialize_position
         user.save_local
         if user.updated
@@ -20,7 +20,7 @@ module Termworld
       end
 
       def sleep(options)
-        user = Model::User.new(name: @name)
+        user = Models::User.new(name: @name)
         user.delete_local(by: :name)
         puts Utils::Color.greenen "User:#{user.name} slept!"
       end
@@ -32,7 +32,7 @@ module Termworld
           return
         end
         direction = options.first.to_sym
-        user = Model::User.new(name: @name)
+        user = Models::User.new(name: @name)
         if !user.bind_local_by_name
           return puts Utils::Color.reden "User:#{@name} doesn't exist"
         end

@@ -1,5 +1,5 @@
 module Termworld
-  module Model
+  module Models
     class User
       attr_reader :id, :name, :created, :updated
       class << self

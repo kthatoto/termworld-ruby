@@ -5,7 +5,7 @@ module Termworld
     class << self
       def setup
         $db ||= Sequel.sqlite(Termworld::DATABASE_NAME)
-        Model::User.create_table
+        Models::User.create_table
       end
     end
   end
