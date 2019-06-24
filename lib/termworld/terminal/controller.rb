@@ -23,16 +23,16 @@ module Termworld
           field.clear
 
           height = field.height
-          width = field.width / 2
+          width = (field.width / 2) + (field.width % 2)
           height.times do |y|
             width.times do |x|
               abs_position = {
                 x: @user.positionx - (width / 2) + x,
-                y: @user.positiony - (height / 2) + y,
+                y: @user.positiony - (height / 2 + height % 2) + y,
               }
               next if abs_position.any? { |_, v| v < 0 }
               next if (chip = map.get_chip(abs_position)).nil?
-              field.rect(chip.rect.position_override(x: x, y: y))
+              field.rect(chip.rect.position_override(x: x * 2, y: y))
             end
           end
 
