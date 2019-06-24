@@ -5,7 +5,7 @@ PATH
       httpclient
       sequel
       sqlite3
-      term_canvas
+      term_canvas (= 0.2.3)
       thor
 
 GEM
@@ -39,7 +39,7 @@ GEM
     rspec-support (3.8.2)
     sequel (5.21.0)
     sqlite3 (1.4.1)
-    term_canvas (0.1.0)
+    term_canvas (0.2.3)
       curses
     thor (0.20.3)
 
