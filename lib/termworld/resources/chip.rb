@@ -3,27 +3,37 @@ require "term_canvas"
 module Termworld
   module Resources
     class Chip
+      attr_reader :movable
       def initialize(y: nil, x: nil, key:)
         @y = y
         @x = x
         @key = key
+        data
       end
 
-      def background_color
+      def data
         case @key
         when "00"
-          return {r: 300, g: 300, b: 300}
+          @movable = true
+          {
+            background_color: {r: 300, g: 300, b: 300},
+          }
         when "01"
-          return {r: 0, g: 0, b: 0}
+          @movable = false
+          {
+            background_color: {r: 0, g: 0, b: 0},
+          }
         when "pl"
-          return {r: 200, b: 200, g: 800}
+          {
+            background_color: {r: 200, b: 200, g: 800},
+          }
         end
       end
 
       def rect
         TermCanvas::Rect.new(
           x: @x, y: @y, width: 2, height: 1,
-          background_color: background_color,
+          background_color: data[:background_color],
         )
       end
     end

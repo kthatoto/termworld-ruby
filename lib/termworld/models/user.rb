@@ -7,7 +7,7 @@ module Termworld
           $db.create_table :users do
             primary_key :id
             String :name
-            String :current_map
+            String :current_map_name
             Integer :positionx
             Integer :positiony
           end
@@ -80,7 +80,7 @@ module Termworld
         {
           id: @id,
           name: @name,
-          current_map: @current_map,
+          current_map_name: @current_map_name,
           positionx: @positionx,
           positiony: @positiony,
         }
@@ -90,26 +90,37 @@ module Termworld
       end
 
       def initialize_position
-        @current_map = 'town'
+        @current_map_name = 'town'
         @positionx = 0
         @positiony = 0
       end
 
       def move(direction)
+        supposed_position = {x: @positionx, y: @positiony}
         case direction
         when :up
-          @positiony -= 1
+          supposed_position[:y] -= 1
         when :down
-          @positiony += 1
+          supposed_position[:y] += 1
         when :left
-          @positionx -= 1
+          supposed_position[:x] -= 1
         when :right
-          @positionx += 1
+          supposed_position[:x] += 1
         else
           return false
         end
+        return false if supposed_position.any? { |_, v| v < 0 }
+        chip = current_map.get_chip(supposed_position)
+        return false if chip.nil? || !chip.movable
+        @positionx = supposed_position[:x]
+        @positiony = supposed_position[:y]
         save_local
         true
+      end
+
+      def current_map
+        @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name.capitalize}").new
+        @current_map
       end
     end
   end
