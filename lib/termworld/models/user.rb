@@ -20,11 +20,16 @@ module Termworld
             self.new(user)
           end
         end
+
+        def all_local
+          $db[:users].all.map do |user|
+            self.new(user)
+          end
+        end
       end
 
       def initialize(params)
-        @id = params[:id]
-        @name = params[:name]
+        params.each { |key, value| instance_variable_set("@#{key}", value) }
       end
 
       def bind_local_by_name
