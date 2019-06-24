@@ -19,20 +19,28 @@ module Termworld
           case key
           when ?q
             break
+          when ?h
+            @user.move(:left)
+          when ?j
+            @user.move(:down)
+          when ?k
+            @user.move(:up)
+          when ?l
+            @user.move(:right)
           end
           field.clear
 
           height = field.height
-          width = (field.width / 2) + (field.width % 2)
+          width = field.width / 2 - 1
           height.times do |y|
             width.times do |x|
               abs_position = {
                 x: @user.positionx - (width / 2) + x,
-                y: @user.positiony - (height / 2 + height % 2) + y,
+                y: @user.positiony - (height / 2) + y,
               }
               next if abs_position.any? { |_, v| v < 0 }
               next if (chip = map.get_chip(abs_position)).nil?
-              field.rect(chip.rect.position_override(x: x * 2, y: y))
+              field.rect(chip.rect.position_override(x: x * 2 + 1, y: y))
             end
           end
 
@@ -43,7 +51,7 @@ module Termworld
           field.rect(player)
 
           field.update
-          sleep 1
+          sleep 0.05
         end
         TermCanvas.close
       end

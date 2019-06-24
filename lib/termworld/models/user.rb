@@ -93,9 +93,9 @@ module Termworld
       def move(direction)
         case direction
         when :up
-          @positiony += 1
-        when :down
           @positiony -= 1
+        when :down
+          @positiony += 1
         when :left
           @positionx -= 1
         when :right
@@ -103,6 +103,7 @@ module Termworld
         else
           return false
         end
+        save_local
         true
       end
     end

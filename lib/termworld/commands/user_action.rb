@@ -48,7 +48,6 @@ module Termworld
           return puts Utils::Color.reden "User:#{@name} is not awake or doesn't exists"
         end
         user.move(direction)
-        user.save_local
       end
 
       def method_missing(method, _)
