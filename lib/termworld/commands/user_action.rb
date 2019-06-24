@@ -1,3 +1,5 @@
+require "termworld/terminal/controller"
+
 module Termworld
   module Commands
     class UserAction
@@ -25,6 +27,15 @@ module Termworld
         puts Utils::Color.greenen "User:#{user.name} slept!"
       end
 
+      def terminal
+        user = Models::User.new(name: @name)
+        if !user.bind_local_by_name
+          return puts Utils::Color.reden "User:#{@name} is not awake or doesn't exists"
+        end
+        terminal = Terminal::Controller.new(user)
+        terminal.run
+      end
+
       def move(options)
         if options.size != 1 || !%w(up down left right).include?(options.first)
           puts Utils::Color.reden 'Direction must be only up, down, left or right'
@@ -34,7 +45,7 @@ module Termworld
         direction = options.first.to_sym
         user = Models::User.new(name: @name)
         if !user.bind_local_by_name
-          return puts Utils::Color.reden "User:#{@name} doesn't exist"
+          return puts Utils::Color.reden "User:#{@name} is not awake or doesn't exists"
         end
         user.move(direction)
         user.save_local
