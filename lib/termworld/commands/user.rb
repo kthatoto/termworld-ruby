@@ -16,8 +16,8 @@ module Termworld
 
         user = Models::User.new(params)
         result = user.create
-        return puts Utils::Color.reden "Failed create user" unless result
-        puts Utils::Color.greenen "Successed create user!"
+        return puts "Failed create user".reden unless result
+        puts "Successed create user!".greenen
       end
 
       desc "list", "List users"
@@ -28,7 +28,7 @@ module Termworld
 
         users = Models::User.all
         if users.empty?
-          puts Utils::Color.bluen "No users. Please create user first"
+          puts "No users. Please create user first".bluen
           puts "ex) $ termworld user create --name=<name>"
           return
         end

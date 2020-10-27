@@ -8,7 +8,7 @@ module Termworld
           daemon = Daemon.new(:start)
           return puts daemon.error_message if daemon.error_message
           daemon.prepare
-          puts Utils::Color.greenen "Started!"
+          puts "Started!".greenen
           daemon.run
 
           loop do
@@ -30,7 +30,7 @@ module Termworld
             return puts daemon.error_message
           end
           daemon.stop
-          puts Utils::Color.greenen "Stopped!"
+          puts "Stopped!".greenen
         end
 
         def status
@@ -39,9 +39,9 @@ module Termworld
           daemon = Daemon.new(:status)
           return puts daemon.error_message if daemon.error_message
           if daemon.alive?
-            puts Utils::Color.bluen "Running!"
+            puts "Running!".bluen
           else
-            puts Utils::Color.bluen "Not running."
+            puts "Not running.".bluen
           end
         end
       end

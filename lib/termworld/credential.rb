@@ -3,7 +3,7 @@ module Termworld
     attr_reader :error_message
     def logged_in?
       if !File.exists?(Termworld::CREDENTIAL_FILE_NAME)
-        @error_message = Utils::Color.reden "Login required"
+        @error_message = "Login required".reden
         return false
       end
       email, token = Credential.get_credential
@@ -12,7 +12,7 @@ module Termworld
       end
       res = $api_client.call(:post, '/login', {email: email, token: token})
       if res.code != 200
-        @error_message = Utils::Color.reden "Wrong credential\nPlease login again"
+        @error_message = "Wrong credential\nPlease login again".reden
         return false
       end
       true

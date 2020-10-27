@@ -17,7 +17,7 @@ module Termworld
             op.parse!(**params)
           end
         rescue OptionParser::InvalidOption => e
-          @error_message = Utils::Color.reden "Invalid options: #{e.args.first}"
+          @error_message = "Invalid options: #{e.args.first}".reden
           return {}
         end
         params

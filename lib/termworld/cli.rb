@@ -42,11 +42,11 @@ module Termworld
       begin
         action_class = Object.const_get("Termworld::Commands::#{_method[0].capitalize}Action")
       rescue
-        puts Utils::Color.reden "#{_method[0]} command not found"
+        puts "#{_method[0]} command not found".reden
         return
       end
       action = action_class.new(_method[1])
-      return puts Utils::Color.reden "Enter any commands" if arg.empty?
+      return puts "Enter any commands".reden if arg.empty?
       action.send(arg[0], arg[1..-1])
     end
   end
