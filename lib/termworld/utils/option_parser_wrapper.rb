@@ -14,7 +14,7 @@ module Termworld
             @options.each do |option|
               op.on(*option[:option]) { |v| params[option[:key]] = v }
             end
-            op.parse!(params)
+            op.parse!(**params)
           end
         rescue OptionParser::InvalidOption => e
           @error_message = Utils::Color.reden "Invalid options: #{e.args.first}"
