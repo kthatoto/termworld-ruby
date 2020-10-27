@@ -10,7 +10,7 @@ module Termworld
       def wakeup(options)
         res = $api_client.call_auth(:get, "/users/#{@name}")
         puts Utils::Color.reden "Login required" if res.code == 401
-        puts Utils::Color.reden "User:#{@name} doesn't exsit" if res.code == 404
+        puts Utils::Color.reden "User:#{@name} doesn't exist" if res.code == 404
         user = Models::User.new(JSON.parse(res.body, {symbolize_names: true})[:user])
         user.initialize_position
         user.save_local
