@@ -1,7 +1,7 @@
 require "sequel"
 
+require "ext/string"
 require "termworld/config"
-require "termworld/utils/color"
 require "termworld/utils/api_client"
 require "termworld/cli"
 require "termworld/daemon"
