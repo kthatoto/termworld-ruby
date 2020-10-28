@@ -4,7 +4,7 @@ module Termworld
       class << self
         def login
           credential = Credential.new
-          return puts "Already logged in".reden if credential.logged_in?
+          return puts "Already logged in".bluen if credential.logged_in?
           print "email: "
           email = $stdin.gets.chomp
           res = $api_client.call(:post, '/token', {email: email})
