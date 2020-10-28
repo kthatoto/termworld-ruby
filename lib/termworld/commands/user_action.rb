@@ -1,4 +1,4 @@
-require "termworld/game/terminal/controller"
+require "termworld/game/controller"
 
 module Termworld
   module Commands

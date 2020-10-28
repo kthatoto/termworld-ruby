@@ -18,11 +18,15 @@ module Termworld
         )
       end
 
+      def empty?
+        !!@empty
+      end
+
       def data
         case @key
         when "--"
           @movable = false
-          { background_color: {r: 0, g: 0, b: 0} }
+          @empty = true
         when "00"
           @movable = true
           { background_color: {r: 300, g: 300, b: 300} }

@@ -1,5 +1,7 @@
 module Termworld
   class Map
+    MAP_NAME = ""
+    CHIP_NUMBERS_LINES = ""
     def name
       MAP_NAME
     end

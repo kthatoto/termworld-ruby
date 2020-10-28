@@ -1,6 +1,6 @@
 require "term_canvas"
 
-require "termworld/game/value_objects/map"
+require "termworld/game/abstracts/map"
 require "termworld/game/resources/chip"
 require "termworld/game/resources/maps/town"
 require "termworld/game/terminal/store"

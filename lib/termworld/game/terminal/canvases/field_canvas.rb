@@ -38,6 +38,7 @@ module Termworld
             end
             next if abs_position.any? { |_, v| v < 0 }
             next if (chip = @store.map.get_chip(**abs_position)).nil?
+            next if chip.empty?
             @canvas.rect(chip.rect.position_override(x: x * 2 + 1, y: y))
           end
         end
