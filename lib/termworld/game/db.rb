@@ -1,4 +1,4 @@
-require "termworld/models/user"
+require "termworld/game/models/user"
 
 module Termworld
   class DB

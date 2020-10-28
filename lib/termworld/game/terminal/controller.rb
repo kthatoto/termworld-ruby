@@ -1,7 +1,7 @@
 require "term_canvas"
 
-require "termworld/resources/chip"
-require "termworld/resources/maps/town"
+require "termworld/game/resources/chip"
+require "termworld/game/resources/maps/town"
 
 module Termworld
   module Terminal
