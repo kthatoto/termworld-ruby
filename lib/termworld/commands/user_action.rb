@@ -22,7 +22,7 @@ module Termworld
         user.initialize_position
         user.save_local
         if user.updated
-          puts "User:#{user.name} already awake".reden
+          puts "User:#{user.name} already awake".bluen
         elsif user.created
           puts "User:#{user.name} woke up!".greenen
         end
