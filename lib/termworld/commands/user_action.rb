@@ -7,6 +7,13 @@ module Termworld
         @name = name
       end
 
+      COMMANDS = [
+        { label: "wakeup",           description: "Wakeup user" },
+        { label: "sleep",            description: "Sleep user" },
+        { label: "terminal",         description: "Start operating user by your terminal" },
+        { label: "move <direction>", description: "Move user [:up, :down, :left, :right]" },
+      ]
+
       def wakeup(options)
         res = $api_client.call_auth(:get, "/users/#{@name}")
         puts "Login required".reden if res.code == 401
@@ -51,7 +58,7 @@ module Termworld
       end
 
       def method_missing(method, _)
-        puts "#{method} command not found".reden
+        puts "\"#{method}\" command not found".reden
       end
     end
   end

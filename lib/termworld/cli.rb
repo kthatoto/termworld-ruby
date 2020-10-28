@@ -45,9 +45,27 @@ module Termworld
         puts "#{_method[0]} command not found".reden
         return
       end
+      if arg.empty?
+        puts "Commands:"
+        commands = action_class::COMMANDS
+        longest_command_size = commands.max_by {|c| c[:label].size}[:label].size
+        commands.each do |command|
+          command_label = "  termworld #{method} #{command[:label]}"
+          command_label += (" " * (longest_command_size - command[:label].size + 1))
+          puts "#{command_label} # #{command[:description]}"
+        end
+        puts
+        return
+      end
+
       action = action_class.new(_method[1])
-      return puts "Enter any commands".reden if arg.empty?
       action.send(arg[0], arg[1..-1])
+    end
+
+    class << self
+      def exit_on_failure?
+        true
+      end
     end
   end
 end
