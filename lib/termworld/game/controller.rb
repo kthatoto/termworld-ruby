@@ -10,6 +10,7 @@ require "termworld/game/terminal/canvases/log_canvas"
 
 require "termworld/game/resources/maps/town"
 require "termworld/game/resources/maps/field"
+require "termworld/game/resources/maps/cave"
 
 module Termworld
   module Terminal
