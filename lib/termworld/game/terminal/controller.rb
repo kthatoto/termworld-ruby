@@ -1,5 +1,6 @@
 require "term_canvas"
 
+require "termworld/game/value_objects/map"
 require "termworld/game/resources/chip"
 require "termworld/game/resources/maps/town"
 require "termworld/game/terminal/store"
@@ -34,6 +35,10 @@ module Termworld
           @canvases.each(&:update)
           TermCanvas.update
           sleep 0.10
+        rescue => e
+          puts e
+          sleep 10
+          break
         end
         TermCanvas.close
       end
