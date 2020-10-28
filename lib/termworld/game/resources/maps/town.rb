@@ -25,6 +25,7 @@ EOS
             .map { |chip_numbers_line| chip_numbers_line.split }
           @chip_numbers_lines
         end
+
         def get_chip(y:, x:)
           chip_number = chip_numbers[y] && chip_numbers[y][x]
           return nil if chip_number.nil?

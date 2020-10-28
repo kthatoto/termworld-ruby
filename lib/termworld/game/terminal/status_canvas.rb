@@ -19,13 +19,10 @@ module Termworld
         @canvas.update
       end
 
+      BACKGROUND_COLOR = {r:  300, g:  300, b:  400}
+      FOREGROUND_COLOR = {r: 1000, g: 1000, b: 1000}
       def draw
-        @canvas.rect(
-          TermCanvas::Rect.new(
-            x: 0, y: 0, width: @canvas.width - 1, height: @canvas.height,
-            background_color: {r: 300, g: 300, b: 400},
-          )
-        )
+        @canvas.background(BACKGROUND_COLOR)
       end
     end
   end

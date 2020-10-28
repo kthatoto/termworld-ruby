@@ -29,6 +29,7 @@ module Termworld
           @canvases.each(&:clear)
           @canvases.each(&:draw)
           @canvases.each(&:update)
+          TermCanvas.update
           sleep 0.10
         end
         TermCanvas.close
