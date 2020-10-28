@@ -2,12 +2,14 @@ require "term_canvas"
 
 require "termworld/game/abstracts/map"
 require "termworld/game/resources/chip"
-require "termworld/game/resources/maps/town"
 require "termworld/game/terminal/store"
 require "termworld/game/terminal/canvases/field_canvas"
 require "termworld/game/terminal/canvases/meta_canvas"
 require "termworld/game/terminal/canvases/status_canvas"
 require "termworld/game/terminal/canvases/log_canvas"
+
+require "termworld/game/resources/maps/town"
+require "termworld/game/resources/maps/field"
 
 module Termworld
   module Terminal
