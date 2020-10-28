@@ -22,7 +22,7 @@ module Termworld
         @meta_canvas = MetaCanvas.new(@store)
         @status_canvas = StatusCanvas.new(@store)
         @log_canvas = LogCanvas.new(@store)
-        @canvases = [@field_canvas, @meta_canvas, @status_canvas]
+        @canvases = [@field_canvas, @meta_canvas, @status_canvas, @log_canvas]
       end
 
       def run
