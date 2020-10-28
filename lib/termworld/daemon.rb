@@ -4,7 +4,7 @@ module Termworld
     def initialize(status = nil)
       case status
       when :start
-        @error_message = "Already running".reden if alive?
+        @error_message = "Already running".bluen if alive?
       when :stop
         @error_message = "Not running".reden unless alive?
       end
