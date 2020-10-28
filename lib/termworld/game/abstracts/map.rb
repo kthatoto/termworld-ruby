@@ -17,5 +17,14 @@ module Termworld
       chip = Resources::Chip.new(y: y, x: x, key: chip_number)
       chip
     end
+
+    def find_transition_position(key)
+      chip_numbers.each_with_index do |chips, y|
+        chips.each_with_index do |chip_key, x|
+          return [y, x] if chip_key == key
+        end
+      end
+      [0, 0]
+    end
   end
 end

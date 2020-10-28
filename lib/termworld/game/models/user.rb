@@ -4,7 +4,8 @@ module Termworld
   module Models
     class User < Base
       self.model_name = "users"
-      attr_reader :id, :name, :created, :updated, :positionx, :positiony
+      attr_reader :id, :name, :created, :updated,
+        :current_map_name, :positionx, :positiony
       class << self
         def create_table
           $db.create_table :users do
@@ -46,7 +47,7 @@ module Termworld
       end
 
       def initialize_position
-        @current_map_name = 'town'
+        @current_map_name = 'Town'
         @positionx = 0
         @positiony = 0
       end
@@ -68,15 +69,24 @@ module Termworld
         return false if supposed_position.any? { |_, v| v < 0 }
         chip = current_map.get_chip(**supposed_position)
         return false if chip.nil? || !chip.movable
-        @positionx = supposed_position[:x]
-        @positiony = supposed_position[:y]
+        if chip.transition_map
+          @current_map_name = current_map.class::TRANSITION_MAPS[chip.key.to_sym]
+          load_map
+          @positiony, @positionx = @current_map.find_transition_position(chip.key)
+        else
+          @positionx = supposed_position[:x]
+          @positiony = supposed_position[:y]
+        end
         save_local
         true
       end
 
       def current_map
-        @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name.capitalize}").new
-        @current_map
+        @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
+      end
+
+      def load_map
+        @current_map = Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
       end
     end
   end

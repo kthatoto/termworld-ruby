@@ -3,7 +3,7 @@ require "term_canvas"
 module Termworld
   module Resources
     class Chip
-      attr_reader :movable, :transition_map
+      attr_reader :movable, :transition_map, :key
       def initialize(y: nil, x: nil, key:)
         @y = y
         @x = x
@@ -33,7 +33,7 @@ module Termworld
         when "01"
           @movable = false
           { background_color: {r: 0, g: 0, b: 0} }
-        when /^m[0-9]$/
+        when /^t[0-9]$/
           @movable = true
           @transition_map = true
           { background_color: {r: 1000, g: 1000, b: 1000} }
