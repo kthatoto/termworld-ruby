@@ -29,9 +29,8 @@ module Termworld
       end
 
       def sleep(options)
-        user = Models::User.new(name: @name)
-        user.delete_local(by: :name)
-        puts "User:#{user.name} slept!".greenen
+        Models::User.delete_local_by_name(@name)
+        puts "User:#{@name} slept!".greenen
       end
 
       def terminal(options)
