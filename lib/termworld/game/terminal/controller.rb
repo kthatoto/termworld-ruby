@@ -9,9 +9,12 @@ module Termworld
       def initialize(user)
         @user = user
         @map = Resources::Maps::Town.new
-        @field = TermCanvas::Canvas.new(x: 0, y: 0, w: TermCanvas.width - 30, h: TermCanvas.height - 10)
-        @meta_canvas = TermCanvas::Canvas.new(x: @field.width, y: 0, w: 30, h: TermCanvas.height)
-        @status_canvas = TermCanvas::Canvas.new(x: 0, y: @field.height, w: TermCanvas.width - 30, h: 10)
+
+        meta_canvas_width = 50
+        status_canvas_height = 10
+        @field = TermCanvas::Canvas.new(x: 0, y: 0, w: TermCanvas.width - meta_canvas_width, h: TermCanvas.height - status_canvas_height)
+        @meta_canvas = TermCanvas::Canvas.new(x: @field.width, y: 0, w: meta_canvas_width, h: TermCanvas.height)
+        @status_canvas = TermCanvas::Canvas.new(x: 0, y: @field.height, w: TermCanvas.width - meta_canvas_width, h: status_canvas_height)
         @canvases = [@field, @meta_canvas, @status_canvas]
       end
 
@@ -22,9 +25,11 @@ module Termworld
           @canvases.each(&:clear)
 
           draw_field
+          draw_meta
+          draw_status
 
           @canvases.each(&:update)
-          sleep 0.05
+          sleep 0.10
         end
         TermCanvas.close
       end
@@ -73,6 +78,24 @@ module Termworld
 
           player_chip = Resources::Chip.new(x: @field.centerx, y: @field.centery, key: "pl")
           @field.rect(player_chip.rect)
+        end
+
+        def draw_meta
+          @meta_canvas.rect(
+            TermCanvas::Rect.new(
+              x: 0, y: 0, width: @meta_canvas.width - 1, height: @meta_canvas.height,
+              background_color: {r: 300, g: 300, b: 400},
+            )
+          )
+        end
+
+        def draw_status
+          @status_canvas.rect(
+            TermCanvas::Rect.new(
+              x: 0, y: 0, width: @status_canvas.width - 1, height: @status_canvas.height,
+              background_color: {r: 300, g: 300, b: 400},
+            )
+          )
         end
     end
   end
