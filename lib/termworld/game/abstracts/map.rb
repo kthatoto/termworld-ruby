@@ -1,14 +1,12 @@
 module Termworld
   class Map
-    MAP_NAME = ""
-    CHIP_NUMBERS_LINES = ""
     def name
-      MAP_NAME
+      self.class::MAP_NAME
     end
 
     def chip_numbers
       return @chip_numbers_lines if @chip_numbers_lines
-      @chip_numbers_lines = CHIP_NUMBERS_LINES.lines(chomp: true)
+      @chip_numbers_lines = self.class::CHIP_NUMBERS_LINES.lines(chomp: true)
         .map { |chip_numbers_line| chip_numbers_line.split }
       @chip_numbers_lines
     end
