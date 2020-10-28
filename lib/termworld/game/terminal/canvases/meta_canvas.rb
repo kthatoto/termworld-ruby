@@ -7,7 +7,7 @@ module Termworld
           x: TermCanvas.width - Controller::META_CANVAS_WIDTH,
           y: 0,
           w: Controller::META_CANVAS_WIDTH,
-          h: TermCanvas.height,
+          h: Controller::META_CANVAS_HEIGHT,
         )
       end
 

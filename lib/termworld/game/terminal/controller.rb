@@ -3,14 +3,16 @@ require "term_canvas"
 require "termworld/game/resources/chip"
 require "termworld/game/resources/maps/town"
 require "termworld/game/terminal/store"
-require "termworld/game/terminal/field_canvas"
-require "termworld/game/terminal/meta_canvas"
-require "termworld/game/terminal/status_canvas"
+require "termworld/game/terminal/canvases/field_canvas"
+require "termworld/game/terminal/canvases/meta_canvas"
+require "termworld/game/terminal/canvases/status_canvas"
+require "termworld/game/terminal/canvases/log_canvas"
 
 module Termworld
   module Terminal
     class Controller
       META_CANVAS_WIDTH = 50
+      META_CANVAS_HEIGHT = 30
       STATUS_CANVAS_HEIGHT = 10
 
       def initialize(user)
@@ -19,6 +21,7 @@ module Termworld
         @field_canvas = FieldCanvas.new(@store)
         @meta_canvas = MetaCanvas.new(@store)
         @status_canvas = StatusCanvas.new(@store)
+        @log_canvas = LogCanvas.new(@store)
         @canvases = [@field_canvas, @meta_canvas, @status_canvas]
       end
 

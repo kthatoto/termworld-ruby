@@ -22,18 +22,14 @@ module Termworld
         case @key
         when "00"
           @movable = true
-          {
-            background_color: {r: 300, g: 300, b: 300},
-          }
+          { background_color: {r: 300, g: 300, b: 300} }
         when "01"
           @movable = false
-          {
-            background_color: {r: 0, g: 0, b: 0},
-          }
-        when "pl"
-          {
-            background_color: {r: 200, b: 200, g: 800},
-          }
+          { background_color: {r: 0, g: 0, b: 0} }
+        when "player"
+          { background_color: {r: 200, b: 200, g: 800} }
+        when "other_player"
+          { background_color: {r: 0, b: 700, g: 0} }
         end
       end
     end

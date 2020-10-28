@@ -32,7 +32,7 @@ module Termworld
               u.positionx == abs_position[:x] && u.positiony == abs_position[:y]
             }
             if user
-              player_chip = Resources::Chip.new(x: x * 2 + 1, y: y, key: "pl")
+              player_chip = Resources::Chip.new(x: x * 2 + 1, y: y, key: "other_player")
               @canvas.rect(player_chip.rect)
               next
             end
@@ -42,7 +42,7 @@ module Termworld
           end
         end
 
-        player_chip = Resources::Chip.new(x: @canvas.centerx, y: @canvas.centery, key: "pl")
+        player_chip = Resources::Chip.new(x: @canvas.centerx, y: @canvas.centery, key: "player")
         @canvas.rect(player_chip.rect)
       end
     end
