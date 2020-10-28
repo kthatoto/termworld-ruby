@@ -2,6 +2,10 @@ module Termworld
   module Resources
     module Maps
       class Town
+        def name
+          "Town"
+        end
+
         def chip_numbers
           return @chip_numbers_lines if @chip_numbers_lines
           chip_numbers_lines = <<'EOS'

@@ -23,14 +23,21 @@ module Termworld
       FOREGROUND_COLOR = {r: 1000, g: 1000, b: 1000}
       def draw
         @canvas.background(BACKGROUND_COLOR)
-        @canvas.text(
-          TermCanvas::Text.new(
-            x: 1, y: 1, body: "current map: #{}",
-            background_color: BACKGROUND_COLOR,
-            foreground_color: FOREGROUND_COLOR,
-          )
-        )
+        text(x: 1, y: 1, body: "current map: #{@store.map.name}")
+        text(x: 1, y: 3, body: "   position: { x: #{@store.user.positionx}, y: #{@store.user.positiony} }")
       end
+
+      private
+
+        def text(x:, y:, body:)
+          @canvas.text(
+            TermCanvas::Text.new(
+              x: x, y: y, body: body,
+              background_color: BACKGROUND_COLOR,
+              foreground_color: FOREGROUND_COLOR,
+            )
+          )
+        end
     end
   end
 end
