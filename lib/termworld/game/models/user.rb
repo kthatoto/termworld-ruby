@@ -66,7 +66,7 @@ module Termworld
           return false
         end
         return false if supposed_position.any? { |_, v| v < 0 }
-        chip = current_map.get_chip(supposed_position)
+        chip = current_map.get_chip(**supposed_position)
         return false if chip.nil? || !chip.movable
         @positionx = supposed_position[:x]
         @positiony = supposed_position[:y]
