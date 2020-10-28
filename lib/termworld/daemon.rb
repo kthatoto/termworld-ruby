@@ -17,7 +17,6 @@ module Termworld
       end
       DB.setup
       Process.setproctitle(Termworld::PROCESS_NAME)
-      File.write(Termworld::DAEMON_FILE_NAME, nil)
     end
 
     def run
@@ -25,7 +24,7 @@ module Termworld
     end
 
     def alive?
-      @killed.nil? && daemon_file_exists && daemon_process_exists
+      @killed.nil? && daemon_process_exists
     end
 
     def stop
@@ -34,7 +33,6 @@ module Termworld
     end
 
     def delete_files
-      File.delete(Termworld::DAEMON_FILE_NAME) if File.exists?(Termworld::DAEMON_FILE_NAME)
       File.delete(Termworld::DATABASE_NAME) if File.exists?(Termworld::DATABASE_NAME)
     end
 
@@ -42,10 +40,6 @@ module Termworld
 
       def kill_daemon_process
         `ps aux | grep #{Termworld::PROCESS_NAME} | grep -v grep | awk '{print $2}' | xargs kill`
-      end
-
-      def daemon_file_exists
-        File.exists?(Termworld::DAEMON_FILE_NAME)
       end
 
       def daemon_process_exists
