@@ -11,6 +11,13 @@ module Termworld
         data
       end
 
+      def rect
+        TermCanvas::Rect.new(
+          x: @x, y: @y, width: 2, height: 1,
+          background_color: data[:background_color],
+        )
+      end
+
       def data
         case @key
         when "00"
@@ -28,13 +35,6 @@ module Termworld
             background_color: {r: 200, b: 200, g: 800},
           }
         end
-      end
-
-      def rect
-        TermCanvas::Rect.new(
-          x: @x, y: @y, width: 2, height: 1,
-          background_color: data[:background_color],
-        )
       end
     end
   end
