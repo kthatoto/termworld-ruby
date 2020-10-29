@@ -11,17 +11,17 @@ module Termworld
           return puts daemon.error_message if daemon.error_message
           daemon.prepare
           puts "Started!".greenen
-          daemon.run
+          # daemon.run
 
           game_daemon = Termworld::Game::Daemon.new
           loop do
             break unless daemon.alive?
-            game_daemon.work
             sleep 1
+            game_daemon.work
+          rescue => e
+            `echo '#{e}' >> log`
           end
           daemon.stop
-        rescue => e
-          `echo #{e} >> log`
         end
 
         def stop
