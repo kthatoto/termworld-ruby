@@ -68,6 +68,8 @@ module Termworld
             @user.hp += 1
           when ?e
             @user.earn_exp(1)
+          when ' '
+            @user.attack
           end
         end
     end

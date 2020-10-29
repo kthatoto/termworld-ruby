@@ -105,9 +105,14 @@ module Termworld
         @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
       end
 
-      def load_map
-        @current_map = Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
+      def attack
       end
+
+      private
+
+        def load_map
+          @current_map = Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
+        end
     end
   end
 end
