@@ -5,7 +5,7 @@ module Termworld
     class User < Base
       self.model_name = "users"
       attr_reader :id, :name, :created, :updated,
-        :current_map_name, :positionx, :positiony
+        :current_map_name, :positionx, :positiony,
       class << self
         def create_table
           $db.create_table :users do
@@ -14,6 +14,13 @@ module Termworld
             String :current_map_name
             Integer :positionx
             Integer :positiony
+            Integer :level
+            Integer :exp
+            Integer :next_level_exp
+            Integer :max_hp
+            Integer :hp
+            Integer :attack_power
+            Integer :deffensive_power
           end
         end
       end
@@ -25,6 +32,13 @@ module Termworld
           current_map_name: @current_map_name,
           positionx: @positionx,
           positiony: @positiony,
+          level: @level,
+          exp: @exp,
+          next_level_exp: @next_level_exp,
+          max_hp: @max_hp,
+          hp: @hp,
+          attack_power: @attack_power,
+          deffensive_power: @deffensive_power,
         }
       end
 

@@ -1,6 +1,6 @@
 module Termworld
   module Terminal
-    class FieldCanvas
+    class FieldCanvas < Termworld::Canvas
       def initialize(store)
         @store = store
         @canvas = TermCanvas::Canvas.new(
@@ -8,14 +8,6 @@ module Termworld
           w: TermCanvas.width - Controller::META_CANVAS_WIDTH,
           h: TermCanvas.height - Controller::STATUS_CANVAS_HEIGHT,
         )
-      end
-
-      def clear
-        @canvas.clear
-      end
-
-      def update
-        @canvas.update
       end
 
       def draw
