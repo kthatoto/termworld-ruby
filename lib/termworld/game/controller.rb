@@ -21,19 +21,19 @@ module Termworld
       STATUS_CANVAS_HEIGHT = 10
 
       def initialize(user)
+        $store = Store.new(@user)
         @user = user
-        @store = Store.new(@user)
-        @field_canvas = FieldCanvas.new(@store)
-        @meta_canvas = MetaCanvas.new(@store)
-        @status_canvas = StatusCanvas.new(@store)
-        @log_canvas = LogCanvas.new(@store)
+        @field_canvas = FieldCanvas.new
+        @meta_canvas = MetaCanvas.new
+        @status_canvas = StatusCanvas.new
+        @log_canvas = LogCanvas.new
         @canvases = [@field_canvas, @meta_canvas, @status_canvas, @log_canvas]
       end
 
       def run
         loop do
           break if handle_keys == :break
-          @store.update
+          $store.update
           @canvases.each(&:clear)
           @canvases.each(&:draw)
           @canvases.each(&:update)

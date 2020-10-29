@@ -1,8 +1,7 @@
 module Termworld
   module Terminal
     class StatusCanvas < Termworld::Canvas
-      def initialize(store)
-        @store = store
+      def initialize
         @canvas = TermCanvas::Canvas.new(
           x: 0,
           y: TermCanvas.height - Controller::STATUS_CANVAS_HEIGHT,
@@ -16,24 +15,24 @@ module Termworld
 
         level_y = 1
         level_width = 25
-        text(x: 1, y: level_y, body: "Lv. #{@store.user.level}")
+        text(x: 1, y: level_y, body: "Lv. #{$store.user.level}")
         text(x: 1, y: level_y + 1, body: "EXP")
         text(x: 5, y: level_y + 1, body: "▅" * level_width, fg_color: BLACK)
-        text(x: 5, y: level_y + 1, body: "▅" * (@store.user_exp_percentage * level_width), fg_color: BLUE)
-        text(x: 5, y: level_y + 2, body: @store.user_exp_text)
+        text(x: 5, y: level_y + 1, body: "▅" * ($store.user_exp_percentage * level_width), fg_color: BLUE)
+        text(x: 5, y: level_y + 2, body: $store.user_exp_text)
 
         hp_y = 5
         hp_width = 25
         text(x: 2, y: hp_y, body: "HP")
         rect(x: 5, y: hp_y, width: hp_width, height: 1, bg_color: BLACK)
-        rect(x: 5, y: hp_y, width: @store.user_hp_percentage * hp_width, height: 1, bg_color: Termworld::Canvas.const_get(@store.user_hp_color))
-        text(x: 5, y: hp_y + 1, body: @store.user_hp_text)
+        rect(x: 5, y: hp_y, width: $store.user_hp_percentage * hp_width, height: 1, bg_color: Termworld::Canvas.const_get($store.user_hp_color))
+        text(x: 5, y: hp_y + 1, body: $store.user_hp_text)
 
         status_x = 35
         status_y = 2
         text(x: status_x, y: status_y, body: "Status")
-        text(x: status_x, y: status_y + 2, body: "ATK. #{@store.user.attack_power}")
-        text(x: status_x, y: status_y + 3, body: "DEF. #{@store.user.deffensive_power}")
+        text(x: status_x, y: status_y + 2, body: "ATK. #{$store.user.attack_power}")
+        text(x: status_x, y: status_y + 3, body: "DEF. #{$store.user.deffensive_power}")
         text(x: status_x, y: status_y + 4, body: "AGI. ???")
         text(x: status_x, y: status_y + 5, body: "INT. ???")
         text(x: status_x, y: status_y + 6, body: "LUK. ???")
