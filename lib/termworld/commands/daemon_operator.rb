@@ -20,6 +20,8 @@ module Termworld
             sleep 1
           end
           daemon.stop
+        rescue => e
+          `echo #{e} >> log`
         end
 
         def stop
