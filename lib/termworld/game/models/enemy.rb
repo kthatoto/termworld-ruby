@@ -1,14 +1,14 @@
 module Termworld
   module Models
-    class User < Base
-      self.model_name = "users"
-      attr_reader :id, :name, :created, :updated,
+    class Enemy < Base
+      self.model_name = "enemies"
+      attr_reader :id, :name,
         :current_map_name, :positionx, :positiony,
-        :level, :exp, :next_level_exp, :max_hp, :attack_power, :defensive_power
-      attr_accessor :hp
+        :level, :exp, :max_hp, :hp, :attack_power, :defensive_power
+
       class << self
         def create_table
-          $db.create_table :users do
+          $db.create_table :enemies do
             primary_key :id
             String :name
             String :current_map_name
@@ -16,7 +16,6 @@ module Termworld
             Integer :positiony
             Integer :level
             Integer :exp
-            Integer :next_level_exp
             Integer :max_hp
             Integer :hp
             Integer :attack_power
@@ -25,11 +24,16 @@ module Termworld
         end
       end
 
-      def initialize_status
-        @current_map_name = 'Town'
-        @positionx = 1
-        @positiony = 1
-        @hp = @max_hp
+      def initialize(params)
+        @id = params[:id]
+        @name = params[:name]
+        @current_map_name = params[:current_map_name]
+        @level = params[:level]
+        @exp = params[:exp]
+        @max_hp = params[:max_hp]
+        @hp = params[:max_hp]
+        @attack_power = params[:attack_power]
+        @defensive_power = params[:defensive_power]
       end
 
       def attributes
@@ -41,7 +45,6 @@ module Termworld
           positiony: @positiony,
           level: @level,
           exp: @exp,
-          next_level_exp: @next_level_exp,
           max_hp: @max_hp,
           hp: @hp,
           attack_power: @attack_power,
@@ -49,22 +52,8 @@ module Termworld
         }
       end
 
-      def bind_local_by_name
-        record = $db[:users].where(name: @name).first
-        return false if record.nil?
-        record.reject { |key, _| key == :name }.each { |key, value|
-          instance_variable_set("@#{key}", value)
-        }
-        true
-      end
-
       def validate
         @errors = []
-        if @name.nil? || @name.empty?
-          @errors << "Name is required"
-        elsif !@name.scan(/[^0-9a-z]+/i).empty?
-          @errors << "Name must be only alphanumeric"
-        end
       end
 
       def move(direction)
@@ -83,30 +72,15 @@ module Termworld
         end
         return false if supposed_position.any? { |_, v| v < 0 }
         chip = current_map.get_chip(**supposed_position)
-        return false if chip.nil? || !chip.movable
-        if chip.transition_map
-          @current_map_name = current_map.class::TRANSITION_MAPS[chip.key.to_sym]
-          load_map
-          @positiony, @positionx = @current_map.find_transition_position(chip.key)
-        else
-          @positionx = supposed_position[:x]
-          @positiony = supposed_position[:y]
-        end
+        return false if chip.nil? || !chip.movable || chip.transition_map
+        @positionx = supposed_position[:x]
+        @positiony = supposed_position[:y]
         save_local
         true
       end
 
-      def earn_exp value
-        @exp += value
-        save_local
-      end
-
       def current_map
         @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
-      end
-
-      def load_map
-        @current_map = Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
       end
     end
   end

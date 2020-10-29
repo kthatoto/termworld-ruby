@@ -33,7 +33,7 @@ module Termworld
         status_y = 2
         text(x: status_x, y: status_y, body: "Status")
         text(x: status_x, y: status_y + 2, body: "ATK. #{@store.user.attack_power}")
-        text(x: status_x, y: status_y + 3, body: "DEF. #{@store.user.deffensive_power}")
+        text(x: status_x, y: status_y + 3, body: "DEF. #{@store.user.defensive_power}")
         text(x: status_x, y: status_y + 4, body: "AGI. ???")
         text(x: status_x, y: status_y + 5, body: "INT. ???")
         text(x: status_x, y: status_y + 6, body: "LUK. ???")
