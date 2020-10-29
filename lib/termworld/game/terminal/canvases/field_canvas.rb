@@ -1,7 +1,8 @@
 module Termworld
   module Terminal
     class FieldCanvas < Termworld::Canvas
-      def initialize
+      def initialize(store)
+        @store = store
         @canvas = TermCanvas::Canvas.new(
           x: 0, y: 0,
           w: TermCanvas.width - Controller::META_CANVAS_WIDTH,
@@ -16,10 +17,10 @@ module Termworld
         height.times do |y|
           width.times do |x|
             abs_position = {
-              x: $store.user.positionx - (width / 2) + x,
-              y: $store.user.positiony - (height / 2) + y,
+              x: @store.user.positionx - (width / 2) + x,
+              y: @store.user.positiony - (height / 2) + y,
             }
-            user = $store.users.find { |u|
+            user = @store.users.find { |u|
               u.positionx == abs_position[:x] && u.positiony == abs_position[:y]
             }
             if user
@@ -28,7 +29,7 @@ module Termworld
               next
             end
             next if abs_position.any? { |_, v| v < 0 }
-            next if (chip = $store.map.get_chip(**abs_position)).nil?
+            next if (chip = @store.map.get_chip(**abs_position)).nil?
             next if chip.empty?
             @canvas.rect(chip.rect.position_override(x: x * 2 + 1, y: y))
           end

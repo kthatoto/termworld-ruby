@@ -1,7 +1,8 @@
 module Termworld
   module Terminal
     class LogCanvas < Termworld::Canvas
-      def initialize
+      def initialize(store)
+        @store = store
         @canvas = TermCanvas::Canvas.new(
           x: TermCanvas.width - Controller::META_CANVAS_WIDTH,
           y: Controller::META_CANVAS_HEIGHT,
