@@ -38,11 +38,11 @@ module Termworld
           @transition_map = true
           { background_color: {r: 1000, g: 1000, b: 1000} }
         when "player"
-          { background_color: {r: 200, b: 200, g: 800} }
+          { background_color: {r: 200, g: 800, b: 200} }
         when "other_player"
-          { background_color: {r: 0, b: 700, g: 0} }
+          { background_color: {r: 0, g: 0, b: 700} }
         when "enemy"
-          { background_color: {r: 800, b: 0, g: 0} }
+          { background_color: {r: 800, g: 200, b: 200} }
         end
       end
     end
