@@ -6,7 +6,8 @@ module Termworld
       self.model_name = "users"
       attr_reader :id, :name, :created, :updated,
         :current_map_name, :positionx, :positiony,
-        :level, :exp, :next_level_exp, :max_hp, :hp, :attack_power, :deffensive_power
+        :level, :exp, :next_level_exp, :max_hp, :attack_power, :deffensive_power
+      attr_accessor :hp
       class << self
         def create_table
           $db.create_table :users do

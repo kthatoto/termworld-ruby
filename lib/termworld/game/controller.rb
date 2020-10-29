@@ -62,6 +62,10 @@ module Termworld
             @user.move(:up)
           when ?l
             @user.move(:right)
+          when ?d
+            @user.hp -= 1
+          when ?r
+            @user.hp += 1
           end
         end
     end
