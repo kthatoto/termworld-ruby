@@ -6,6 +6,7 @@ module Termworld
       self.model_name = "users"
       attr_reader :id, :name, :created, :updated,
         :current_map_name, :positionx, :positiony,
+        :level, :exp, :next_level_exp, :max_hp, :hp, :attack_power, :deffensive_power
       class << self
         def create_table
           $db.create_table :users do
@@ -23,6 +24,13 @@ module Termworld
             Integer :deffensive_power
           end
         end
+      end
+
+      def initialize_status
+        @current_map_name = 'Town'
+        @positionx = 1
+        @positiony = 1
+        @hp = @max_hp
       end
 
       def attributes
@@ -58,12 +66,6 @@ module Termworld
         elsif !@name.scan(/[^0-9a-z]+/i).empty?
           @errors << "Name must be only alphanumeric"
         end
-      end
-
-      def initialize_position
-        @current_map_name = 'Town'
-        @positionx = 0
-        @positiony = 0
       end
 
       def move(direction)

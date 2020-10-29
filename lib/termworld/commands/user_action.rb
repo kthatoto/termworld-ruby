@@ -19,7 +19,7 @@ module Termworld
         puts "Login required".reden if res.code == 401
         puts "User:#{@name} doesn't exist".reden if res.code == 404
         user = Models::User.new(JSON.parse(res.body, {symbolize_names: true})[:user])
-        user.initialize_position
+        user.initialize_status
         user.save_local
         if user.updated
           puts "User:#{user.name} already awake".bluen
