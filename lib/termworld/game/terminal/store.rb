@@ -21,6 +21,13 @@ module Termworld
           attack(target) if target
           @user.attacking = false
         end
+
+        @enemies.select(&:attacking).each do |enemy|
+          enemy.attacking = false
+          enemy.save_local
+          target = [@user, @users].flatten.find {|u| touched(enemy, u)}
+          enemy_attack(enemy, target, target.id == @user.id) if target
+        end
       end
 
       def map
@@ -75,6 +82,18 @@ module Termworld
               @logs.push Log.new({ type: :levelup, message: "#{@user.name} ATK #{res[:diff][:attack_power]} UP" })
               @logs.push Log.new({ type: :levelup, message: "#{@user.name} DEF #{res[:diff][:defensive_power]} UP" })
             end
+          else
+            target.save_local
+          end
+        end
+
+        def enemy_attack(enemy, target)
+          atk = enemy.attack_power
+          damage = [(atk - target.defensive_power + (-(atk / 4)..(atk / 4)).to_a.sample), 0].max
+          target.hp = [target.hp - damage, 0].max
+          @logs.push Log.new({ type: :defend, message: "#{enemy.name} attack #{target.name} #{damage} damges" })
+          if target.hp <= 0
+            @logs.push Log.new({ type: :defeated, message: "#{target.name} defeated" })
           else
             target.save_local
           end

@@ -4,7 +4,8 @@ module Termworld
       self.model_name = "enemies"
       attr_reader :id, :name,
         :current_map_name, :positionx, :positiony,
-        :level, :exp, :max_hp, :attack_power, :defensive_power
+        :level, :exp, :max_hp, :attack_power, :defensive_power,
+        :attacking
       attr_accessor :hp
 
       class << self
@@ -21,6 +22,7 @@ module Termworld
             Integer :hp
             Integer :attack_power
             Integer :defensive_power
+            Boolean :attacking
           end
         end
       end
@@ -35,6 +37,7 @@ module Termworld
         @hp = params[:hp] ? params[:hp] : params[:max_hp]
         @attack_power = params[:attack_power]
         @defensive_power = params[:defensive_power]
+        @attacking = false
 
         if (params[:positionx] && params[:positiony])
           @positionx = params[:positionx]
@@ -64,6 +67,7 @@ module Termworld
           hp: @hp,
           attack_power: @attack_power,
           defensive_power: @defensive_power,
+          attacking: @attacking,
         }
       end
 
@@ -96,6 +100,10 @@ module Termworld
 
       def current_map
         @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
+      end
+
+      def attack
+        @attacking = true
       end
     end
   end

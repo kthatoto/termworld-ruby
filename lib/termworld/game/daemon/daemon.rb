@@ -39,8 +39,15 @@ module Termworld
 
         @enemies = Models::Enemy.all_local
         @enemies.each do |enemy|
-          direction = [:up, :down, :left, :right].sample
-          enemy.move(direction)
+          action = [:move, :attack].sample
+          case [:move, :attack].sample
+          when :move
+            direction = [:up, :down, :left, :right].sample
+            enemy.move(direction)
+          when :attack
+            enemy.attack
+            enemy.save_local
+          end
         end
       end
 
