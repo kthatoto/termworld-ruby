@@ -66,6 +66,8 @@ module Termworld
             @user.hp -= 1
           when ?r
             @user.hp += 1
+          when ?e
+            @user.earn_exp(1)
           end
         end
     end

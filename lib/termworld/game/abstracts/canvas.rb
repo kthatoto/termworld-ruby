@@ -13,6 +13,7 @@ module Termworld
     GREEN  = {r:  200, g:  800, b:  200}
     YELLOW = {r:  800, g:  700, b:  200}
     RED    = {r:  800, g:  200, b:  200}
+    BLUE   = {r:  200, g:  200, b:  800}
     BLACK  = {r:    0, g:    0, b:    0}
     WHITE  = {r: 1000, g: 1000, b: 1000}
 

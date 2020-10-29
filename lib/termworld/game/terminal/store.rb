@@ -34,6 +34,14 @@ module Termworld
           "RED"
         end
       end
+
+      def user_exp_percentage
+        user.exp.to_f / user.next_level_exp
+      end
+
+      def user_exp_text
+        "#{user.exp} / #{user.next_level_exp}"
+      end
     end
   end
 end

@@ -98,6 +98,11 @@ module Termworld
         true
       end
 
+      def earn_exp value
+        @exp += value
+        save_local
+      end
+
       def current_map
         @current_map ||= Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
       end
