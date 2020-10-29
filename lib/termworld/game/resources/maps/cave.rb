@@ -2,7 +2,7 @@ module Termworld
   module Resources
     module Maps
       class Cave < Termworld::Map
-        MAP_NAME = "Town"
+        MAP_NAME = "Cave"
         TRANSITION_MAPS = { t1: "Field" }
         CHIP_NUMBERS_LINES = <<'EOS'
 -- -- -- -- -- -- t1

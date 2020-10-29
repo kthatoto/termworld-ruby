@@ -13,8 +13,15 @@ module Termworld
 
       def draw
         @canvas.background(BACKGROUND_COLOR)
-        text(x: 1, y: 1, body: "current map: #{@store.map.name}")
-        text(x: 1, y: 3, body: "   position: { x: #{@store.user.positionx}, y: #{@store.user.positiony} }")
+        text(x: 1, y: 1, body:   "current map: #{@store.map.name}")
+        text(x: 1, y: 3, body:   "   position: { x: #{@store.user.positionx}, y: #{@store.user.positiony} }")
+
+        text(x: 1, y: 5, body:   "    players:")
+        y = 7
+        if @store.users.size == 0
+          text(x: 1, y: y, body: "      -----")
+        else
+        end
       end
     end
   end
