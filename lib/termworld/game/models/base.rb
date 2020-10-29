@@ -64,6 +64,10 @@ module Termworld
           $db[model_name.to_sym].insert(attributes)
         end
       end
+
+      def defeated
+        self.class.delete_local(@id)
+      end
     end
   end
 end

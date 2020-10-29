@@ -4,7 +4,8 @@ module Termworld
       self.model_name = "enemies"
       attr_reader :id, :name,
         :current_map_name, :positionx, :positiony,
-        :level, :exp, :max_hp, :hp, :attack_power, :defensive_power
+        :level, :exp, :max_hp, :attack_power, :defensive_power
+      attr_accessor :hp
 
       class << self
         def create_table
@@ -31,7 +32,7 @@ module Termworld
         @level = params[:level]
         @exp = params[:exp]
         @max_hp = params[:max_hp]
-        @hp = params[:max_hp]
+        @hp = params[:hp] ? params[:hp] : params[:max_hp]
         @attack_power = params[:attack_power]
         @defensive_power = params[:defensive_power]
 

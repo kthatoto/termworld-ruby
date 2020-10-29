@@ -3,7 +3,6 @@ module Termworld
     class Daemon
       def work
         @enemies = Models::Enemy.all_local
-
         if (cool_times[:field] -= 1) <= 0 && @enemies.select {|e| e.current_map_name == "Field"}.size < 3
           level = (2..4).to_a.sample
           enemy = Models::Enemy.new(
@@ -38,6 +37,7 @@ module Termworld
           @enemies << enemy
         end
 
+        @enemies = Models::Enemy.all_local
         @enemies.each do |enemy|
           direction = [:up, :down, :left, :right].sample
           enemy.move(direction)

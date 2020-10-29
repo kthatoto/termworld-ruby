@@ -5,7 +5,7 @@ module Termworld
       attr_reader :id, :name, :created, :updated,
         :current_map_name, :positionx, :positiony,
         :level, :exp, :next_level_exp, :max_hp, :attack_power, :defensive_power
-      attr_accessor :hp
+      attr_accessor :hp, :attacking
       class << self
         def create_table
           $db.create_table :users do
@@ -97,7 +97,10 @@ module Termworld
       end
 
       def earn_exp value
-        @exp += value
+        res = $api_client.call_auth(:patch, "/users/#{@name}/earn_exp", { exp: value })
+        res = JSON.parse(res.body, {symbolize_names: true})
+        bind_server_user_to_self(res[:user])
+        @hp = @max_hp
         save_local
       end
 
@@ -106,12 +109,21 @@ module Termworld
       end
 
       def attack
+        @attacking = true
       end
 
       private
 
         def load_map
           @current_map = Object.const_get("Termworld::Resources::Maps::#{@current_map_name}").new
+        end
+
+        def bind_server_user_to_self(server_user)
+          @exp = server_user[:exp]
+          @level = server_user[:level]
+          @max_hp = server_user[:max_hp]
+          @attack_power = server_user[:attack_power]
+          @defensive_power = server_user[:defensive_power]
         end
     end
   end

@@ -2,6 +2,7 @@ require "term_canvas"
 
 require "termworld/game/abstracts/map"
 require "termworld/game/abstracts/canvas"
+require "termworld/game/abstracts/log"
 require "termworld/game/resources/chip"
 require "termworld/game/terminal/store"
 require "termworld/game/terminal/canvases/field_canvas"

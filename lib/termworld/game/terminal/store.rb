@@ -1,10 +1,11 @@
 module Termworld
   module Terminal
     class Store
-      attr_reader :user, :users, :enemies
+      attr_reader :user, :users, :enemies, :logs
 
       def initialize(user)
         @user = user
+        @logs = []
       end
 
       def update
@@ -14,6 +15,12 @@ module Termworld
 
         @enemies = Models::Enemy.all_local
           .select {|enemy| enemy.current_map_name == @user.current_map_name}
+
+        if @user.attacking
+          target = @enemies.find {|e| touched(@user, e)}
+          attack(target) if target
+          @user.attacking = false
+        end
       end
 
       def map
@@ -45,6 +52,27 @@ module Termworld
       def user_exp_text
         "#{user.exp} / #{user.next_level_exp}"
       end
+
+      private
+
+        def touched(object1, object2)
+          (object1.positionx - object2.positionx).abs + (object1.positiony - object2.positiony).abs <= 1
+        end
+
+        def attack(target)
+          atk = @user.attack_power
+          damage = [(atk - target.defensive_power + (-(atk / 4)..(atk / 4)).to_a.sample), 0].max
+          target.hp = [target.hp - damage, 0].max
+          @logs.push Log.new({ type: :attack, message: "#{@user.name} attack #{target.name} #{damage} damges" })
+          if target.hp <= 0
+            @enemies = @enemies.reject {|e| e.id == target.id}
+            target.defeated
+            @user.earn_exp(target.exp)
+            @logs.push Log.new({ type: :defeat, message: "#{@user.name} defeat #{target.name}" })
+          else
+            target.save_local
+          end
+        end
     end
   end
 end
