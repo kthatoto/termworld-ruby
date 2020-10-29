@@ -16,7 +16,7 @@ module Termworld
           game_daemon = Termworld::Game::Daemon.new
           loop do
             break unless daemon.alive?
-            sleep 1
+            sleep 3
             game_daemon.work
           rescue => e
             `echo '#{e}' >> log`

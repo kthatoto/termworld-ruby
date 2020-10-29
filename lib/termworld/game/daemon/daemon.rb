@@ -17,7 +17,7 @@ module Termworld
             defensive_power: level * 1,
           )
           enemy.save_local
-          cool_times[:field] = 10
+          cool_times[:field] = 3
           @enemies << enemy
         end
 
@@ -34,7 +34,7 @@ module Termworld
             defensive_power: level * 2,
           )
           enemy.save_local
-          cool_times[:cave] = 20
+          cool_times[:cave] = 8
           @enemies << enemy
         end
 
