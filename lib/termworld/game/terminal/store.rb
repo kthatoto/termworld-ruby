@@ -16,6 +16,14 @@ module Termworld
       def map
         user.current_map
       end
+
+      def user_hp_percentage
+        user.hp.to_f / user.max_hp
+      end
+
+      def user_hp_text
+        "#{user.hp} / #{user.max_hp}"
+      end
     end
   end
 end

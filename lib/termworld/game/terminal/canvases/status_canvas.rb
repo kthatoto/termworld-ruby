@@ -13,6 +13,10 @@ module Termworld
 
       def draw
         @canvas.background(BACKGROUND_COLOR)
+        text(x: 1, y: 0, body: "HP")
+        rect(x: 3, y: 0, width: 10, height: 1, bg_color: BLACK)
+        rect(x: 3, y: 0, width: store.user_hp_percentage, height: 1, bg_color: BLACK)
+        text(x: 3, y: 1, body: store.user_hp_text)
       end
     end
   end
