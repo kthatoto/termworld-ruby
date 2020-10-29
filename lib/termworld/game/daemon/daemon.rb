@@ -12,7 +12,7 @@ module Termworld
             current_map_name: "Field",
             level: level,
             exp: level * 1,
-            max_hp: level * 1,
+            max_hp: level * 3,
             attack_power: level * 1,
             defensive_power: level * 1,
           )
@@ -25,11 +25,11 @@ module Termworld
           level = (4..7).to_a.sample
           enemy = Models::Enemy.new(
             id: @enemies.map(&:id).max.to_i + 1,
-            name: "Cave Bat",
+            name: "Goblin",
             current_map_name: "Cave",
             level: level,
             exp: level * 1.8,
-            max_hp: level * 2,
+            max_hp: level * 6,
             attack_power: level * 1.2,
             defensive_power: level * 2,
           )
