@@ -66,9 +66,15 @@ module Termworld
           @logs.push Log.new({ type: :attack, message: "#{@user.name} attack #{target.name} #{damage} damges" })
           if target.hp <= 0
             @enemies = @enemies.reject {|e| e.id == target.id}
-            target.defeated
-            @user.earn_exp(target.exp)
             @logs.push Log.new({ type: :defeat, message: "#{@user.name} defeat #{target.name}" })
+            target.defeated
+            res = @user.earn_exp(target.exp)
+            if res[:leveluped]
+              @logs.push Log.new({ type: :levelup, message: "#{@user.name} #{res[:diff][:level]} levelup" })
+              @logs.push Log.new({ type: :levelup, message: "#{@user.name} HP #{res[:diff][:max_hp]} UP" })
+              @logs.push Log.new({ type: :levelup, message: "#{@user.name} ATK #{res[:diff][:attack_power]} UP" })
+              @logs.push Log.new({ type: :levelup, message: "#{@user.name} DEF #{res[:diff][:defensive_power]} UP" })
+            end
           else
             target.save_local
           end

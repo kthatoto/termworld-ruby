@@ -102,6 +102,7 @@ module Termworld
         bind_server_user_to_self(res[:user])
         @hp = @max_hp
         save_local
+        res
       end
 
       def current_map
@@ -124,6 +125,7 @@ module Termworld
           @max_hp = server_user[:max_hp]
           @attack_power = server_user[:attack_power]
           @defensive_power = server_user[:defensive_power]
+          @next_level_exp = server_user[:next_level_exp]
         end
     end
   end
