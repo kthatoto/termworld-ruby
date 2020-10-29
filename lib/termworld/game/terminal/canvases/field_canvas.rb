@@ -35,6 +35,7 @@ module Termworld
             if enemy
               enemy_chip = Resources::Chip.new(x: x * 2 + 1, y: y, key: "enemy")
               @canvas.rect(enemy_chip.rect)
+              next
             end
 
             next if abs_position.any? { |_, v| v < 0 }
