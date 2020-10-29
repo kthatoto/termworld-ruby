@@ -38,8 +38,8 @@ module Termworld
         if !user.bind_local_by_name
           return puts "User:#{@name} is not awake or doesn't exists".reden
         end
-        terminal = Terminal::Controller.new(user)
-        terminal.run
+        controller = Terminal::Controller.new(user)
+        controller.run
       end
 
       def move(options)
