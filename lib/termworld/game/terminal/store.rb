@@ -1,7 +1,7 @@
 module Termworld
   module Terminal
     class Store
-      attr_reader :user, :users
+      attr_reader :user, :users, :enemies
 
       def initialize(user)
         @user = user
@@ -11,6 +11,9 @@ module Termworld
         @users = Models::User.all_local
           .reject {|user| user.name == @user.name}
           .select {|user| user.current_map_name == @user.current_map_name}
+
+        @enemies = Models::Enemy.all_local
+          .select {|enemy| enemy.current_map_name == @user.current_map_name}
       end
 
       def map

@@ -41,6 +41,8 @@ module Termworld
           { background_color: {r: 200, b: 200, g: 800} }
         when "other_player"
           { background_color: {r: 0, b: 700, g: 0} }
+        when "enemy"
+          { background_color: {r: 800, b: 0, g: 0} }
         end
       end
     end
