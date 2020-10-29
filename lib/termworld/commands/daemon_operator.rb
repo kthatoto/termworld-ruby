@@ -11,7 +11,7 @@ module Termworld
           return puts daemon.error_message if daemon.error_message
           daemon.prepare
           puts "Started!".greenen
-          # daemon.run
+          daemon.run
 
           game_daemon = Termworld::Game::Daemon.new
           loop do

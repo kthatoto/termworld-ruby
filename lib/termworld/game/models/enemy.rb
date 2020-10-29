@@ -35,12 +35,17 @@ module Termworld
         @attack_power = params[:attack_power]
         @defensive_power = params[:defensive_power]
 
-        while !(@positionx && @positiony) do
-          y = (0...(current_map.chip_numbers.size)).to_a.sample
-          x = (0...(current_map.chip_numbers[y].size)).to_a.sample
-          if current_map.get_chip(y: y, x: x).movable
-            @positiony = y
-            @positionx = x
+        if (params[:positionx] && params[:positiony])
+          @positionx = params[:positionx]
+          @positiony = params[:positiony]
+        else
+          while !(@positionx && @positiony) do
+            y = (0...(current_map.chip_numbers.size)).to_a.sample
+            x = (0...(current_map.chip_numbers[y].size)).to_a.sample
+            if current_map.get_chip(y: y, x: x).movable
+              @positiony = y
+              @positionx = x
+            end
           end
         end
       end
