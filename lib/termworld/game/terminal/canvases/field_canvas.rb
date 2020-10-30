@@ -45,7 +45,7 @@ module Termworld
           end
         end
 
-        player_chip = Resources::Chip.new(x: @canvas.centerx - @canvas.centerx % 2 - 1, y: @canvas.centery, key: "player")
+        player_chip = Resources::Chip.new(x: @canvas.centerx - @canvas.centerx % 2 + 1, y: @canvas.centery, key: "player")
         @canvas.rect(player_chip.rect)
       end
     end
