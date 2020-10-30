@@ -26,9 +26,9 @@ module Termworld
       end
 
       def initialize_status
-        @current_map_name = 'Town'
-        @positionx = 1
-        @positiony = 1
+        @current_map_name = 'Field'
+        @positionx = 20
+        @positiony = 20
         @hp = @max_hp
       end
 
