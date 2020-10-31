@@ -1,10 +1,12 @@
 require "sequel"
 
-require "ext/string"
 require "termworld/config"
-require "termworld/utils/api_client"
-require "termworld/cli"
+require "termworld/cli/cli"
 require "termworld/daemon"
+
+["ext", ""].each do |directory|
+  Dir["#{directory}/**/*.rb"].each {|file| require file}
+end
 
 module Termworld
   def self.start

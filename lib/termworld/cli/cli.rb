@@ -1,13 +1,11 @@
 require "thor"
 require "json"
 
-require "termworld/commands/account"
-require "termworld/commands/daemon_operator"
-require "termworld/commands/user"
-require "termworld/commands/user_action"
-require "termworld/credential"
-require "termworld/utils/option_parser_wrapper"
-require "termworld/game/db"
+require "termworld/cli/commands/account"
+require "termworld/cli/commands/daemon_operator"
+require "termworld/cli/commands/user"
+require "termworld/cli/commands/user_action"
+require "termworld/cli/credential"
 
 module Termworld
   class CLI < Thor
