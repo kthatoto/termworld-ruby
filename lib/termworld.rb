@@ -1,10 +1,13 @@
 require "sequel"
 
+require "ext/string"
 require "termworld/config"
 require "termworld/cli/cli"
 require "termworld/daemon"
+require "termworld/utils/api_client"
+require "termworld/utils/option_parser_wrapper"
 
-["ext", "lib/utils"].each do |directory|
+["ext", "termworld/utils"].each do |directory|
   Dir["#{directory}/**/*.rb"].each {|file| require file}
 end
 
