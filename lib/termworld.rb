@@ -4,7 +4,7 @@ require "termworld/config"
 require "termworld/cli/cli"
 require "termworld/daemon"
 
-["ext", ""].each do |directory|
+["ext", "lib/utils"].each do |directory|
   Dir["#{directory}/**/*.rb"].each {|file| require file}
 end
 
