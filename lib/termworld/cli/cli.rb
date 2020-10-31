@@ -1,11 +1,7 @@
 require "thor"
 require "json"
 
-require "termworld/cli/commands/account"
-require "termworld/cli/commands/daemon_operator"
-require "termworld/cli/commands/user"
-require "termworld/cli/commands/user_action"
-require "termworld/cli/credential"
+Dir["./**/*.rb"].each {|file| require file}
 
 module Termworld
   class CLI < Thor
