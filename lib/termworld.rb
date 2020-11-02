@@ -3,6 +3,8 @@ require "sequel"
 require "termworld/config"
 require "termworld/cli/cli"
 require "termworld/daemon/daemon"
+
+require "ext/string"
 require "termworld/utils/api_client"
 require "termworld/utils/option_parser_wrapper"
 
