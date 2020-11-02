@@ -1,11 +1,11 @@
 require "thor"
 require "json"
 
-require "termworld/cli/credential"
-require "termworld/cli/commands/account"
-require "termworld/cli/commands/daemon_operator"
-require "termworld/cli/commands/user"
-require "termworld/cli/commands/user_action"
+require_relative "credential"
+require_relative "commands/account"
+require_relative "commands/daemon_operator"
+require_relative "commands/user"
+require_relative "commands/user_action"
 
 module Termworld
   class CLI < Thor
