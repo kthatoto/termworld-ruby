@@ -3,6 +3,7 @@ require "sequel"
 require "termworld/config"
 require "termworld/cli/cli"
 require "termworld/daemon/daemon"
+require "termworld/game/db"
 
 require "ext/string"
 require "termworld/utils/api_client"
