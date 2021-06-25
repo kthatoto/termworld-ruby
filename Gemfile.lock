@@ -22,7 +22,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    rake (10.5.0)
+    rake (13.0.3)
     sequel (5.45.0)
     sqlite3 (1.4.2)
     term_canvas (0.2.10)
@@ -35,7 +35,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.0)
   pry-byebug
-  rake (~> 10.0)
+  rake (~> 13.0)
   termworld!
 
 BUNDLED WITH
