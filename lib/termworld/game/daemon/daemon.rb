@@ -10,7 +10,7 @@ module Termworld
             name: "Rat",
             current_map_name: "Field",
             level: level,
-            exp: level * 1,
+            exp: level * 3,
             max_hp: level * 3,
             attack_power: level * 1,
             defensive_power: level * 1,
